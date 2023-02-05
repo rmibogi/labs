@@ -19,18 +19,17 @@ try:
         while buffer:                                           # пока файл не пустой
 #           print(buffer)
 #           print(odd_position_flag)
-            if buffer>='0' and buffer <='9' and odd_position_flag and int(buffer) % 2 == 0:     #обрабатываем текущий блок
-                number_flag = True
-                work_buffer += number_to_words[int(buffer)]
-            else:
-                work_buffer += buffer
-                if buffer>='0' and buffer <='9':
+            if not((buffer >= 'a' and buffer <= 'z') or (buffer >= 'A' and buffer <= 'Z') or (buffer >= 'а' and buffer <= 'я') or (buffer >= 'А' and buffer <= 'Я')):
+                if buffer>='0' and buffer <='9' and odd_position_flag and int(buffer) % 2 == 0:     #обрабатываем текущий блок
                     number_flag = True
-                elif buffer.find('.') < 0 and buffer.find('!') < 0 and buffer.find('?') < 0 and buffer.find(',') < 0 and buffer.find(' ') < 0:
-                    number_flag = False
+                    work_buffer += number_to_words[int(buffer)]
+                else:
+                    work_buffer += buffer
+                    if buffer>='0' and buffer <='9':
+                        number_flag = True
     
             odd_position_flag = not(odd_position_flag)
-#            print(work_buffer)
+#            print(work_buffer, buffer, number_flag)
             
             if buffer.find('.') >= 0 or buffer.find('!') >= 0 or buffer.find('?') >= 0 or buffer.find(',') >= 0 or buffer.find(' ') >= 0:   # если символ, разделяющий числа
                 odd_position_flag = True
