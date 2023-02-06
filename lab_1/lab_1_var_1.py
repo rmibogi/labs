@@ -28,7 +28,7 @@ try:
             if buffer>='0' and buffer <='9' and odd_position_flag and int(buffer) % 2 == 0:     #обрабатываем текущий блок
                 number_flag = True
                 work_buffer += number_to_words[int(buffer)]
-            else:
+            else: 
                 work_buffer += buffer
                 if buffer>='0' and buffer <='9':
                     number_flag = True
