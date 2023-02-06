@@ -41,6 +41,7 @@ try:
             if (buffer.find('.') >= 0 or buffer.find('!') >= 0 or buffer.find('?') >= 0 or buffer.find(',') >= 0 or buffer.find(' ') >= 0) and work_buffer_len > 1:   # если символ, разделяющий числа
                 odd_position_flag = True
                 if number_flag and not(trash_flag):             # если число
+                    work_buffer = work_buffer[:-1]              # срезаем знак
                     print(work_buffer)                          # печатаем число и готовим новый цикл
                     number_flag = False
                 trash_flag = False
