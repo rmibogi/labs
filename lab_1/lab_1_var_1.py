@@ -49,7 +49,7 @@ try:
             buffer = file.read(buffer_len)  # читаем очередной блок
             work_buffer_len += buffer_len
             if work_buffer_len >= max_buffer_len and buffer.find('.') < 0 and buffer.find('!') < 0 and buffer.find('?') < 0:
-                print("\nФайл test.txt не содержит знаков окончания предложения и максимальный размер буфера превышен.\nОткорректируйте файл text.txt в директории проекта или переименуйте существующий *.txt файл.")
+                print("\nФайл test.txt не содержит знаков, разделяющих числа, и максимальный размер буфера превышен.\nОткорректируйте файл text.txt в директории проекта или переименуйте существующий *.txt файл.")
                 buffer = ""
         if not(trash_flag):
             print(work_buffer)
