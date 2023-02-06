@@ -38,11 +38,16 @@ try:
             odd_position_flag = not(odd_position_flag)
 #            print(work_buffer, buffer, number_flag, trash_flag)
             
-            if buffer.find('.') >= 0 or buffer.find('!') >= 0 or buffer.find('?') >= 0 or buffer.find(',') >= 0 or buffer.find(' ') >= 0:   # если символ, разделяющий числа
+            if (buffer.find('.') >= 0 or buffer.find('!') >= 0 or buffer.find('?') >= 0 or buffer.find(',') >= 0 or buffer.find(' ') >= 0) and work_buffer_len > 1:   # если символ, разделяющий числа
                 odd_position_flag = True
                 if number_flag and not(trash_flag):             # если число
                     print(work_buffer)                          # печатаем число и готовим новый цикл
                     number_flag = False
+                trash_flag = False
+                work_buffer = ""
+                work_buffer_len = 0
+            elif (buffer.find('.') >= 0 or buffer.find('!') >= 0 or buffer.find('?') >= 0 or buffer.find(',') >= 0 or buffer.find(' ') >= 0) and work_buffer_len > 0:
+                odd_position_flag = True
                 trash_flag = False
                 work_buffer = ""
                 work_buffer_len = 0
