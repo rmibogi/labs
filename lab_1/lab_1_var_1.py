@@ -57,7 +57,7 @@ try:
             if work_buffer_len >= max_buffer_len and buffer.find('.') < 0 and buffer.find('!') < 0 and buffer.find('?') < 0:
                 print("\nФайл test.txt не содержит знаков, разделяющих числа, и максимальный размер буфера превышен.\nОткорректируйте файл text.txt в директории проекта или переименуйте существующий *.txt файл.")
                 buffer = ""
-        if not(trash_flag):
+        if not(trash_flag):     # вывод последнего элемента, если флаг мусора отрицателен
             print(work_buffer)
                 
 except FileNotFoundError:
