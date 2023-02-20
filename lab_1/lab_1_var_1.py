@@ -17,7 +17,7 @@ odd_position_flag = True # флаг нечетной позиции
 work_buffer_len = buffer_len # длина рабочего буфера
 
 try:
-    with open("test.txt", "r") as file:                         # открываем файл
+    with open("text.txt", "r") as file:                         # открываем файл
         print("\n------Результат работы программы-----\n")
         buffer = file.read(buffer_len)                          # читаем первый блок
         if not buffer:                                          # если файл пустой
