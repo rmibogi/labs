@@ -7,7 +7,6 @@ import re
 
 numbers = {str(x) for x in range(10)}
 number_to_words = {2 : 'два', 4 : 'четыре', 6 : 'шесть', 8 : 'восемь', 0 : 'ноль'}
-symbols = {'.', '!', '?', ',', ' '}
 number_counter = 0
 
 def repl(number):
@@ -21,11 +20,18 @@ try:
             print("\nФайл text.txt в директории проекта закончился.")
             break
         for j in a:
-            res = re.findall(r'\D?\d+^((!#$%&()*,.;?)(\s))', j) # находим все натуральные числа с учетом грамматики
+            res = re.findall(r'(?<!\w|[;,.?!])\d+(?=[.!?,])?(?!\w)', j) # находим все натуральные числа с учетом грамматики
+#            print(res)
+            counter = 0
+            number_counter += 1
             if len(res) == 1:
-#                res = re.split(';|,|\.|!|\?', res[0])
-                if len(res[0]) == len(j):
-                    print(res[0])
+                for i in res[0]:
+                    counter += 1
+                    if int(i) % 2 == 0 and counter % 2 != 0:
+                        print(number_to_words[int(i)], end='')
+                    else:
+                        print(i, end='')
+                print()
 
 
     if number_counter == 0:
