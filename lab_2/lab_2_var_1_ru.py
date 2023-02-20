@@ -16,14 +16,14 @@ try:
     while True:
         a = file.readline().split()     # читаем строку
 #        print(a)
-        if not a:
+        if not a:                   # если файл пустой
             print("\nФайл text.txt в директории проекта закончился.")
             break
         for j in a:
-            res = re.findall(r'(?<!\w|[;,.?!])\d+(?=[.!?,])?(?!\w)', j) # находим все натуральные числа с учетом грамматики
+            res = re.findall(r'(?<!\w)\d+(?=[.!?,;])?(?!\w)', j) # находим все натуральные числа с учетом грамматики
 #            print(res)
             counter = 0
-            number_counter += 1
+            number_counter += 1 
             if len(res) == 1:
                 for i in res[0]:
                     counter += 1
