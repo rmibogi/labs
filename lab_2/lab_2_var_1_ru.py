@@ -5,7 +5,6 @@
 
 import re
 
-numbers = {str(x) for x in range(10)}
 number_to_words = {2 : 'два', 4 : 'четыре', 6 : 'шесть', 8 : 'восемь', 0 : 'ноль'}
 number_counter = 0
 
@@ -16,6 +15,7 @@ try:
     file = open("text.txt", "r")    # открываем файл
     while True:
         a = file.readline().split()     # читаем строку
+#        print(a)
         if not a:
             print("\nФайл text.txt в директории проекта закончился.")
             break
