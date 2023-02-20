@@ -8,6 +8,7 @@ import re
 numbers = {str(x) for x in range(10)}
 number_to_words = {2 : 'два', 4 : 'четыре', 6 : 'шесть', 8 : 'восемь', 0 : 'ноль'}
 symbols = {'.', '!', '?', ',', ' '}
+number_counter = 0
 
 def repl(number):
     return number_to_words[int(number[0])]
@@ -20,11 +21,21 @@ try:
             print("\nФайл text.txt в директории проекта закончился.")
             break
         for j in a:
-            res = re.findall(r'\b(?:[13579][02468])+\b', j)
+            res = re.findall(r'\D?\d+\D?', j) # находим все натуральные числа с учетом грамматики
             if len(res) == 1:
-                if len(j) == len(res[0]):
-                    res = re.findall(r'\b(?:[13579][02468])+\b', j)
-                    print(res)
+#                print(res, len(res[0]), "|", j, len(j))
+#                print()
+                res = re.split(';|,|\.|!|\?', res[0])
+                if (len(res[0]) == len(j)):
+                    counter = 0
+                    number_counter += 1
+                    for i in res[0]:
+                        counter += 1
+                        if int(i) % 2 == 0 and counter % 2 != 0:
+                            print(number_to_words[int(i)], end='')
+                        else:
+                            print(i, end='')
+                    print()
             
 except FileNotFoundError:
     print("\nФайл test.txt в директории не обнаружен.\nДобавьте файл в директорию или переименуйте существующий *.txt файл.")
