@@ -8,9 +8,6 @@ import re
 number_to_words = {2 : 'два', 4 : 'четыре', 6 : 'шесть', 8 : 'восемь', 0 : 'ноль'}
 number_counter = 0
 
-def repl(number):
-    return number_to_words[int(number[0])]
-
 try:
     file = open("text.txt", "r")    # открываем файл
     while True:
