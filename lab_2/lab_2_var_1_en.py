@@ -5,9 +5,7 @@
 
 import re
 
-numbers = {str(x) for x in range(10)}
 number_to_words = {2 : 'два', 4 : 'четыре', 6 : 'шесть', 8 : 'восемь', 0 : 'ноль'}
-symbols = {'.', '!', '?', ',', ' '}
 number_counter = 0
 
 def repl(number):
