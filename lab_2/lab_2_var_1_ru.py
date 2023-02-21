@@ -22,7 +22,7 @@ try:
             counter = 0         # счетчик для вывода
             number_counter += 1 
             if len(res) == 1:
-                for i in res[0]:    # вывод
+                for i in str(int(res[0])):    # вывод
                     counter += 1
                     if int(i) % 2 == 0 and counter % 2 != 0:
                         print(number_to_words[int(i)], end='')
