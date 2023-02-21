@@ -26,16 +26,15 @@ try:
 #                print()
 #                res = re.split(';|,|\.|!|\?', res[0])
 #                print(res, len(res[0]), "|", j, len(j))
-                if 1:
-                    counter = 0
-                    number_counter += 1
-                    for i in res[0]:
-                        counter += 1
-                        if int(i) % 2 == 0 and counter % 2 != 0:
-                            print(number_to_words[int(i)], end='')
-                        else:
-                            print(i, end='')
-                    print()
+                counter = 0         # счетчик для вывода
+                number_counter += 1
+                for i in res[0]:
+                    counter += 1
+                    if int(i) % 2 == 0 and counter % 2 != 0:
+                        print(number_to_words[int(i)], end='')
+                    else:
+                        print(i, end='')
+                print()
 
     if number_counter == 0:
         print()
