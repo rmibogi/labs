@@ -22,7 +22,7 @@ try:
             counter = 0         # счетчик для вывода
             number_counter += 1 
             if len(res) == 1:
-                for i in res[0]:
+                for i in res[0]:    # вывод
                     counter += 1
                     if int(i) % 2 == 0 and counter % 2 != 0:
                         print(number_to_words[int(i)], end='')
@@ -30,7 +30,7 @@ try:
                         print(i, end='')
                 print()
 
-    if number_counter == 0:
+    if number_counter == 0:     # если чисел, подходящих условию нет
         print()
         print('В файле нет чисел, удовлетворяющих условию. Добавьте числа в файл или переименуйте существующий *.txt файл.')               
             
