@@ -20,8 +20,8 @@ try:
             res = re.findall(r'(?<![\w/\.,;!?\\])\d+(?=[.!?,;])?(?!\w)', j) # находим все натуральные числа с учетом грамматики
 #            print(res)
             counter = 0         # счетчик для вывода
-            number_counter += 1 
-            if len(res) == 1:
+            number_counter += 1
+            if len(res) == 1 and int(res[0]) != 0:
                 for i in str(int(res[0])):    # вывод
                     counter += 1
                     if int(i) % 2 == 0 and counter % 2 != 0:
