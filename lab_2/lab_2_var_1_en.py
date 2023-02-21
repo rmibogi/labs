@@ -21,8 +21,6 @@ try:
         for j in a:
             res = re.findall(r'\b\d+\b', j) # находим все натуральные числа с учетом грамматики
             if len(res) == 1:
-#                print()
-#                res = re.split(';|,|\.|!|\?', res[0])
 #                print(res, len(res[0]), "|", j, len(j))
                 counter = 0         # счетчик для вывода
                 number_counter += 1
