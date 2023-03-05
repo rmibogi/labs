@@ -58,13 +58,15 @@ try:
                 zero_counter_3 += 1
 
     matrix_F_dump = [[elem for elem in raw] for raw in matrix_F]
+    
+    print(zero_counter_1, zero_counter_3)
 
     if zero_counter_1 > zero_counter_3:
         for i in range(floor(n/2)):
             for j in range(floor(n/2)):
-                if (j > i) and (j < floor(n/2)-i+1):
-                    matrix_F[i][j] = matrix_F_dump[floor(n/2) - i - 1][j]
-                    matrix_F[floor(n/2) - i - 1][j] = matrix_F_dump[i][j]
+                if (j >= i) and (j <= floor(n/2)-i+1):
+                    matrix_F[i][j] = matrix_F_dump[floor(n/2) - i][j]
+                    matrix_F[floor(n/2) - i][j] = matrix_F_dump[i][j]
     else:
         for i in range(n//2):
             for j in range(n//2):
