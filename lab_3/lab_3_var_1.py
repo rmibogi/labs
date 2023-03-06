@@ -7,10 +7,10 @@ def print_matrix(matrix):
 try:
     print("Введите число K, являющееся коэффициентом при умножении: ")
     k = 2#int(input())
-    print("Введите число четное число N, большее 5, являющееся размером квадратной матрицы: ")
+    print("Введите число число N, большее 5, являющееся размером квадратной матрицы: ")
     n = 8#int(input())
-    while n < 5 or n % 2 != 0:
-        n = int(input("Вы ввели число, неподходящее по условию, введите четное число N, большее 5:\n"))
+    while n < 5:
+        n = int(input("Вы ввели число, неподходящее по условию, введите число N, большее 5:\n"))
 
     print("Матрица А изначальная:")
 
@@ -42,34 +42,53 @@ try:
     print_matrix(matrix_F)
     print()
 
-    print("Матрица F, сформированная:")
+    print("Элемент B матрицы F:")
+
+    matrix_F_B = [[0 for i in range(floor(n/2))] for j in range(floor(n/2))]
+
+    for i in range(floor(n/2)):
+        for j in range(floor(n/2)):
+            matrix_F_B[i][j] = matrix_F[i][j]
+
+    print_matrix(matrix_F_B)
+    print()
 
     zero_counter_1 = 0
     zero_counter_3 = 0
+    n_B = floor(n/2)
 
-    for i in range(n//2):
-        for j in range(n//2):
-            if (j <= i) and (j <= n//2-i+1) and matrix_F[i][j] == 0:
+    for i in range(n_B):
+        for j in range(n_B):
+            if ((i + j + 1) <= n_B) and (i >= j) and matrix_F_B[i][j] == 0:
                 zero_counter_1 += 1
 
-    for i in range(n//2):
-        for j in range(n//2):
-            if (j >= i) and (j >= n//2-i+1) and matrix_F[i][j] == 0:
+    for i in range(n_B):
+        for j in range(n_B):
+            if (i <= j) and ((i + j + 1) >= n_B) and matrix_F_B[i][j] == 0:
                 zero_counter_3 += 1
 
+    matrix_F_B_dump = [[elem for elem in raw] for raw in matrix_F_B]
+
+    if zero_counter_1 > zero_counter_3:
+        for i in range(n_B):
+            for j in range(n_B):
+                if (i < j) and ((i + j + 1) < n_B):
+                    matrix_F_B[i][j] = matrix_F_B_dump[n_B - i - 1][j]
+                    matrix_F_B[n_B - i - 1][j] = matrix_F_B_dump[i][j]
+
+    print("Матрица F, сформированная:")
+
     matrix_F_dump = [[elem for elem in raw] for raw in matrix_F]
-    
-    print(zero_counter_1, zero_counter_3)
 
     if zero_counter_1 > zero_counter_3:
         for i in range(floor(n/2)):
             for j in range(floor(n/2)):
-                if (j >= i) and (j <= floor(n/2)-i+1):
-                    matrix_F[i][j] = matrix_F_dump[floor(n/2) - i][j]
-                    matrix_F[floor(n/2) - i][j] = matrix_F_dump[i][j]
+                if (i < j) and ((i + j + 1) < floor(n/2)):
+                    matrix_F[i][j] = matrix_F_dump[floor(n/2) - i - 1][j]
+                    matrix_F[floor(n/2) - i - 1][j] = matrix_F_dump[i][j]
     else:
-        for i in range(n//2):
-            for j in range(n//2):
+        for i in range(floor(n/2)):
+            for j in range(floor(n/2)):
                 matrix_F[i][j] = matrix_F_dump[floor(n/2) + i][floor(n/2) + j]
                 matrix_F[floor(n/2) + i][floor(n/2) + j] = matrix_F_dump[i][j]
 
