@@ -35,6 +35,12 @@ try:
 
     matrix_A = [[random.randint(-10, 10) for i in range(n)] for j in range(n)]    # создаем матрицу размером nxn, заполненную случайными числами
 
+    #number_for_check = 0        # задание матрицы для тестирования
+    #for i in range(n):
+    #    for j in range(n):
+    #        matrix_A[i][j] = number_for_check
+    #        number_for_check += 1
+
     print_matrix(matrix_A)          # вывод матрицы A
 
     matrix_A_dump = [[elem for elem in raw] for raw in matrix_A]        # резервная копия матрицы A для дальнейших операций
