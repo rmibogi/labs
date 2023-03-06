@@ -12,8 +12,14 @@
 from math import ceil, floor
 import random
 
-def print_matrix(matrix):                                               # функция вывода матрицы
-    print('\n'.join('\t'.join(map(str, row)) for row in matrix))
+def print_matrix(matrix):                  # функция вывода матрицы
+    matrix1 = list(map(list, zip(*matrix)))
+    for i in range(len(matrix1)):
+        k = len(max(list(map(str, matrix1[i])), key=len))
+        matrix1[i] = [f'{elem:{k}d}' for elem in matrix1[i]]
+    matrix1 = list(map(list, zip(*matrix1)))
+    for row in matrix1:
+        print(*row)
     print()
 
 try:
@@ -22,7 +28,7 @@ try:
     print("Введите число число N, большее или равное 5, являющееся размером квадратной матрицы: ")
     n = int(input())
     print()
-    while n < 5:        # в случае введения слишком малого размера матрицы
+    while n < 5:        # ошибка в случае введения слишком малого размера матрицы
         n = int(input("Вы ввели число, неподходящее по условию, введите число N, большее или равное 5:\n"))
 
     print("Матрица А изначальная:")
@@ -114,7 +120,7 @@ try:
 
     print_matrix(matrix_F_multiplied)          # выводим результат умножения
 
-    print("Результат разности между результатом умножения матрицы A*AT и результатом умножения матрицы F*K:")
+    print("Конечный результат разности между результатом умножения матрицы A*AT и результатом умножения матрицы F*K:")
 
     matrix_C_result = [[0 for i in range(n)] for j in range(n)]      # заготовка под конечный результат разности двух последних вычисленных слагаемых
 
@@ -124,5 +130,7 @@ try:
 
     print_matrix(matrix_C_result)          # выводим конечный результат работы программы
 
+    print("Работа программы завершена.")
+
 except ValueError:                                      # ошибка на случай введения не числа в качестве размера или коэффициента
-    print("\nВведенный символ не является числом.")
+    print("\nВведенный символ не является числом. Перезапустите программу и введите число.")
