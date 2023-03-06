@@ -69,13 +69,6 @@ try:
 
     matrix_F_B_dump = [[elem for elem in raw] for raw in matrix_F_B]
 
-    if zero_counter_1 > zero_counter_3:
-        for i in range(n_B):
-            for j in range(n_B):
-                if (i < j) and ((i + j + 1) < n_B):
-                    matrix_F_B[i][j] = matrix_F_B_dump[n_B - i - 1][j]
-                    matrix_F_B[n_B - i - 1][j] = matrix_F_B_dump[i][j]
-
     print("Матрица F, сформированная:")
 
     matrix_F_dump = [[elem for elem in raw] for raw in matrix_F]
