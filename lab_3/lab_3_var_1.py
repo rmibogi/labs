@@ -1,4 +1,4 @@
-from math import floor
+from math import ceil, floor
 import random
 
 def print_matrix(matrix):
@@ -8,7 +8,7 @@ try:
     print("Введите число K, являющееся коэффициентом при умножении: ")
     k = 2#int(input())
     print("Введите число число N, большее 5, являющееся размером квадратной матрицы: ")
-    n = 8#int(input())
+    n = 12#int(input())
     while n < 5:
         n = int(input("Вы ввели число, неподходящее по условию, введите число N, большее 5:\n"))
 
@@ -44,10 +44,10 @@ try:
 
     print("Элемент B матрицы F:")
 
-    matrix_F_B = [[0 for i in range(floor(n/2))] for j in range(floor(n/2))]
+    matrix_F_B = [[0 for i in range(ceil(n/2))] for j in range(ceil(n/2))]
 
-    for i in range(floor(n/2)):
-        for j in range(floor(n/2)):
+    for i in range(ceil(n/2)):
+        for j in range(ceil(n/2)):
             matrix_F_B[i][j] = matrix_F[i][j]
 
     print_matrix(matrix_F_B)
@@ -55,7 +55,7 @@ try:
 
     zero_counter_1 = 0
     zero_counter_3 = 0
-    n_B = floor(n/2)
+    n_B = ceil(n/2)
 
     for i in range(n_B):
         for j in range(n_B):
@@ -67,21 +67,22 @@ try:
             if (i <= j) and ((i + j + 1) >= n_B) and matrix_F_B[i][j] == 0:
                 zero_counter_3 += 1
 
-    matrix_F_B_dump = [[elem for elem in raw] for raw in matrix_F_B]
+    print("Количество нулей в области 1 в B:", zero_counter_1, "\nКоличество нулей в области 3 в B:", zero_counter_3)
+    print()
 
     print("Матрица F, сформированная:")
 
     matrix_F_dump = [[elem for elem in raw] for raw in matrix_F]
 
     if zero_counter_1 > zero_counter_3:
-        for i in range(floor(n/2)):
-            for j in range(floor(n/2)):
-                if (i < j) and ((i + j + 1) < floor(n/2)):
-                    matrix_F[i][j] = matrix_F_dump[floor(n/2) - i - 1][j]
-                    matrix_F[floor(n/2) - i - 1][j] = matrix_F_dump[i][j]
+        for i in range(ceil(n/2)):
+            for j in range(ceil(n/2)):
+                if (i < j) and ((i + j + 1) < ceil(n/2)):
+                    matrix_F[i][j] = matrix_F_dump[ceil(n/2) - i - 1][j]
+                    matrix_F[ceil(n/2) - i - 1][j] = matrix_F_dump[i][j]
     else:
-        for i in range(floor(n/2)):
-            for j in range(floor(n/2)):
+        for i in range(ceil(n/2)):
+            for j in range(ceil(n/2)):
                 matrix_F[i][j] = matrix_F_dump[floor(n/2) + i][floor(n/2) + j]
                 matrix_F[floor(n/2) + i][floor(n/2) + j] = matrix_F_dump[i][j]
 
