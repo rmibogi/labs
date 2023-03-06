@@ -40,3 +40,14 @@ if zero_counter_1 > zero_counter_3:
                 matrix_F[floor(n) - i - 1][j] = matrix_F_dump[i][j]
 
 print_matrix(matrix_F)
+
+k = 2
+
+matrix_F_multiplied = [[0 for i in range(n)] for j in range(n)]
+
+for i in range(n):
+    for j in range(n):
+        matrix_F_multiplied[i][j] = k * matrix_F[i][j]
+
+print_matrix(matrix_F_multiplied)
+print()

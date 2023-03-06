@@ -3,14 +3,16 @@ import random
 
 def print_matrix(matrix):
     print('\n'.join('\t'.join(map(str, row)) for row in matrix))
+    print()
 
 try:
     print("Введите число K, являющееся коэффициентом при умножении: ")
-    k = 2#int(input())
-    print("Введите число число N, большее 5, являющееся размером квадратной матрицы: ")
-    n = 12#int(input())
+    k = int(input())
+    print("Введите число число N, большее или равное 5, являющееся размером квадратной матрицы: ")
+    n = int(input())
+    print()
     while n < 5:
-        n = int(input("Вы ввели число, неподходящее по условию, введите число N, большее 5:\n"))
+        n = int(input("Вы ввели число, неподходящее по условию, введите число N, большее или равное 5:\n"))
 
     print("Матрица А изначальная:")
 
@@ -21,7 +23,6 @@ try:
             matrix_A[i][j] = random.randint(-10, 10)
 
     print_matrix(matrix_A)
-    print()
 
     matrix_A_dump = [[elem for elem in raw] for raw in matrix_A]
     matrix_A_trans = [[0 for i in range(n)] for j in range(n)]
@@ -33,14 +34,12 @@ try:
             matrix_A_trans[i][j] = matrix_A_dump[j][i]
 
     print_matrix(matrix_A_trans)
-    print()
 
     print("Матрица F изначально равная матрице A:")
 
     matrix_F = [[elem for elem in raw] for raw in matrix_A]
 
     print_matrix(matrix_F)
-    print()
 
     print("Элемент B матрицы F:")
 
@@ -51,7 +50,6 @@ try:
             matrix_F_B[i][j] = matrix_F[i][j]
 
     print_matrix(matrix_F_B)
-    print()
 
     zero_counter_1 = 0
     zero_counter_3 = 0
@@ -87,7 +85,6 @@ try:
                 matrix_F[floor(n/2) + i][floor(n/2) + j] = matrix_F_dump[i][j]
 
     print_matrix(matrix_F)
-    print()
 
     print("Результат умножения матрицы A на транспонированную матрицу A:")
 
@@ -95,11 +92,10 @@ try:
 
     for i in range(n):
         for j in range(n):
-            for k in range(n):
-                matrix_A_multiplied[i][j] += matrix_A[i][k] * matrix_A_trans[k][j]
+            for l in range(n):
+                matrix_A_multiplied[i][j] += matrix_A[i][l] * matrix_A_trans[l][j]
 
     print_matrix(matrix_A_multiplied)
-    print()
 
     print("Результат умножения матрицы F на коэффициент K:")
 
@@ -110,7 +106,6 @@ try:
             matrix_F_multiplied[i][j] = k * matrix_F[i][j]
 
     print_matrix(matrix_F_multiplied)
-    print()
 
     print("Результат разности между результатом умножения матрицы A и результатом умножения матрицы F:")
 
@@ -121,7 +116,6 @@ try:
             matrix_C_result[i][j] = matrix_A_multiplied[i][j] - matrix_F_multiplied[i][j]
 
     print_matrix(matrix_C_result)
-    print()
 
 except ValueError:
     print("\nВведенный символ не является числом.")
