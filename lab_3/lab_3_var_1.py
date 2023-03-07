@@ -35,11 +35,7 @@ try:
 
     matrix_A = [[random.randint(-10, 10) for i in range(n)] for j in range(n)]    # создаем матрицу размером nxn, заполненную случайными числами
 
-    #number_for_check = 0        # задание матрицы для тестирования
-    #for i in range(n):
-    #    for j in range(n):
-    #        matrix_A[i][j] = number_for_check
-    #        number_for_check += 1
+    #matrix_A = [[i+j*n for i in range(n)] for j in range(n)]        # задание матрицы для тестирования
 
     print_matrix(matrix_A)          # вывод матрицы A
 
