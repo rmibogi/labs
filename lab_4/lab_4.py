@@ -58,11 +58,11 @@ try:
 
     # Формируем матрицу F
     if zero_counter_B > zero_counter_E:
-        print(zero_counter_B, ">", zero_counter_E)
+        print("Количество нулей в В больше, чем в Е:", zero_counter_B, ">", zero_counter_E, ". Меняем симметрично B и C.")
         F[:submatrix_length, submatrix_length+n % 2:n] = sub_matrix_B[:submatrix_length, ::-1]
         F[:submatrix_length, :submatrix_length] = sub_matrix_C[:submatrix_length, ::-1]
     else:
-        print(zero_counter_B, "<=", zero_counter_E)
+        print("Количество нулей в В равно или меньше, чем в Е:", zero_counter_B, "<=", zero_counter_E, ". Меняем несимметрично B и E.")
         F[:submatrix_length, :submatrix_length] = sub_matrix_E
         F[submatrix_length+n % 2:n, submatrix_length+n % 2:n] = sub_matrix_B
 
@@ -127,7 +127,7 @@ try:
     for i in range(1, n+1):
         number_row += [i]*n
     number_item = list(range(1, n+1))*n
-    df = pd.DataFrame({"Значения": A.flatten(), "Номер строки": number_row, "Номер элемента в строке": number_item})
+    df = pd.DataFrame({"Значения": F.flatten(), "Номер строки": number_row, "Номер элемента в строке": number_item})
     fig, axs = plt.subplots(2, 2, figsize=(11, 8))
     plt.subplot(221)
     plt.title("Использование функции lineplot")
@@ -140,7 +140,7 @@ try:
     sns.kdeplot(data=df, x="Номер элемента в строке", y="Значения", hue="Номер строки", palette="Set2")
     plt.subplot(224)
     plt.title("Использование функции heatmap")
-    sns.heatmap(data=A, annot=True, fmt="d", linewidths=.5)
+    sns.heatmap(data=F, annot=True, fmt="d", linewidths=.5)
     plt.suptitle("Использование библиотеки seaborn")
     plt.tight_layout()
     plt.show()
