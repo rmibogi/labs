@@ -28,7 +28,6 @@ try:
     k = int(input())
     print("Введите число число N, большее 5, являющееся порядком квадратной матрицы: ")
     n = int(input())
-    print()
     while n <= 5:  # ошибка в случае введения слишком малого порядка матрицы
         n = int(input("Вы ввели число, неподходящее по условию, введите число N, большее или равное 5:\n"))
 
@@ -36,7 +35,7 @@ try:
 
     # Создание и заполнение матрицы A
     A = np.random.randint(-10.0, 10.0, (n, n))
-    print("Матрица A:\n", A)
+    print("\nМатрица A:\n", A)
 
     # Создание подматриц
     submatrix_length = n//2
@@ -46,40 +45,38 @@ try:
 
     # Создание матрицы F
     F = A.copy()
-    print("Матрица F:\n", F)
+    print("\nМатрица F:\n", F)
 
     # Обработка матрицы B и E
     zero_counter_B = np.count_nonzero(sub_matrix_B == 0)  # счетчик нулей подматрицы B матрицы F
     zero_counter_E = np.count_nonzero(sub_matrix_E == 0)  # счетчик нулей подматрицы E матрицы F
 
-    print("Подматрица B:\n", sub_matrix_B)
-    print(zero_counter_B)
-    print()
-    print("Подматрица E:\n", sub_matrix_E)
-    print(zero_counter_E)
-    print()
+    print("\nПодматрица B:\n", sub_matrix_B)
+    print("\nПодматрица E:\n", sub_matrix_E)
 
     # Формируем матрицу F
     if zero_counter_B > zero_counter_E:
+        print(zero_counter_B, ">", zero_counter_E)
         F[:submatrix_length, submatrix_length+n % 2:n] = sub_matrix_B[:submatrix_length, ::-1]
         F[:submatrix_length, :submatrix_length] = sub_matrix_C[:submatrix_length, ::-1]
     else:
+        print(zero_counter_B, "<=", zero_counter_E)
         F[:submatrix_length, :submatrix_length] = sub_matrix_E
         F[submatrix_length+n % 2:n, submatrix_length+n % 2:n] = sub_matrix_B
 
-    print("Отформатированная матрица F:\n", F)
+    print("\nОтформатированная матрица F:\n", F)
 
     try:
         if np.linalg.det(A) > sum(np.diagonal(F)):
-            print("Результат выражения A*AT – K * F:\n", A*A.transpose() - F*k)
+            print("\nРезультат выражения A*AT – K * F:\n", A*A.transpose() - F*k)
         else:
             G = np.tri(n)*A
-            print("Результат выражения (A^(-1) +G-F^(-1))*K:\n", (np.linalg.inv(A) + G - np.linalg.inv(F)) * k)
+            print("\nРезультат выражения (A^(-1) +G-F^(-1))*K:\n", (np.linalg.inv(A) + G - np.linalg.inv(F)) * k)
 
     except np.linalg.LinAlgError:
         print("Одна из матриц является вырожденной (определитель равен 0), поэтому обратную матрицу найти невозможно.")
 
-    print("Матрица, которая используется при построение графиков:\n", F)
+    print("\nМатрица, которая используется при построение графиков:\n", F)
 
     av = [np.mean(abs(F[i, ::])) for i in range(n)]
     av = int(sum(av))
@@ -87,23 +84,19 @@ try:
     x = list(range(1, n+1))
     for j in range(n):
         y = list(F[j, ::])
-
         axs[0, 0].plot(x, y, ',-', label=f"{j} строка.")
         axs[0, 0].set(title="График с использованием функции plot:", xlabel='Номер элемента в строке', ylabel='Значение элемента')
         axs[0, 0].grid()
-
         axs[0, 1].bar(x, y, 0.4, label=f"{j} строка.")
         axs[0, 1].set(title="График с использованием функции bar:", xlabel='Номер элемента в строке', ylabel='Значение элемента')
         if n <= 10:
             axs[0, 1].legend(loc='lower right')
             axs[0, 1].legend(loc='lower right')
-
     explode = [0]*(n-1)
     explode.append(0.1)
     sizes = [round(np.mean(abs(F[i, ::])) * 100/av, 1) for i in range(n)]
     axs[1, 0].set_title("График с ипользованием функции pie:")
     axs[1, 0].pie(sizes, labels=list(range(1, n+1)), explode=explode, autopct='%1.1f%%', shadow=True)
-
     def heatmap(data, row_labels, col_labels, ax, cbar_kw={}, **kwargs):
         im = ax.imshow(data, **kwargs)
         cbar = ax.figure.colorbar(im, ax=ax, **cbar_kw)
@@ -134,7 +127,7 @@ try:
     number_item = list(range(1, n+1))*n
     df = pd.DataFrame({"Значения": A.flatten(), "Номер строки": number_row, "Номер элемента в строке": number_item})
     fig, axs = plt.subplots(2, 2, figsize=(11, 8))
-    plt.subplot(2, 2, 1)
+    plt.subplot(221)
     plt.title("Использование функции lineplot")
     sns.lineplot(x="Номер элемента в строке", y="Значения", hue="Номер строки", data=df, palette="Set2")
     plt.subplot(222)
