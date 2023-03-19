@@ -84,10 +84,10 @@ try:
     x = list(range(1, n+1))
     for j in range(n):
         y = list(F[j, ::])
-        axs[0, 0].plot(x, y, ',-', label=f"{j} строка.")
+        axs[0, 0].plot(x, y, ',-', label=f"{j+1} строка.")
         axs[0, 0].set(title="График с использованием функции plot:", xlabel='Номер элемента в строке', ylabel='Значение элемента')
         axs[0, 0].grid()
-        axs[0, 1].bar(x, y, 0.4, label=f"{j} строка.")
+        axs[0, 1].bar(x, y, 0.4, label=f"{j+1} строка.")
         axs[0, 1].set(title="График с использованием функции bar:", xlabel='Номер элемента в строке', ylabel='Значение элемента')
         if n <= 10:
             axs[0, 1].legend(loc='lower right')
