@@ -23,31 +23,20 @@ import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
 
-def print_matrix(matrix):                  # функция вывода матрицы
-    matrix1 = list(map(list, zip(*matrix)))
-    for i in range(len(matrix1)):
-        k = len(max(list(map(str, matrix1[i])), key=len))
-        matrix1[i] = [f'{elem:{k}d}' for elem in matrix1[i]]
-    matrix1 = list(map(list, zip(*matrix1)))
-    for row in matrix1:
-        print(*row)
-    print()
-
 try:
     print("Введите число K, являющееся коэффициентом при умножении: ")
     k = int(input())
-    print("Введите число число N, большее или равное 5, являющееся порядком квадратной матрицы: ")
+    print("Введите число число N, большее 5, являющееся порядком квадратной матрицы: ")
     n = int(input())
     print()
-    while n < 5:  # ошибка в случае введения слишком малого порядка матрицы
+    while n <= 5:  # ошибка в случае введения слишком малого порядка матрицы
         n = int(input("Вы ввели число, неподходящее по условию, введите число N, большее или равное 5:\n"))
 
     np.set_printoptions(linewidth=1000)
 
     # Создание и заполнение матрицы A
     A = np.random.randint(-10.0, 10.0, (n, n))
-    print("Матрица A:")
-    print_matrix(A)
+    print("Матрица A:\n", A)
 
     # Создание подматриц
     submatrix_length = n//2
@@ -57,19 +46,16 @@ try:
 
     # Создание матрицы F
     F = A.copy()
-    print("Матрица F:")
-    print_matrix(F)
+    print("Матрица F:\n", F)
 
     # Обработка матрицы B и E
     zero_counter_B = np.count_nonzero(sub_matrix_B == 0)  # счетчик нулей подматрицы B матрицы F
     zero_counter_E = np.count_nonzero(sub_matrix_E == 0)  # счетчик нулей подматрицы E матрицы F
 
-    print("Подматрица B:")
-    print_matrix(sub_matrix_B)
+    print("Подматрица B:\n", sub_matrix_B)
     print(zero_counter_B)
     print()
-    print("Подматрица E:")
-    print_matrix(sub_matrix_E)
+    print("Подматрица E:\n", sub_matrix_E)
     print(zero_counter_E)
     print()
 
@@ -81,18 +67,14 @@ try:
         F[:submatrix_length, :submatrix_length] = sub_matrix_E
         F[submatrix_length+n % 2:n, submatrix_length+n % 2:n] = sub_matrix_B
 
-    print("Отформатированная матрица F:")
-    print_matrix(F)
+    print("Отформатированная матрица F:\n", F)
 
     try:
         if np.linalg.det(A) > sum(np.diagonal(F)):
-            print("Результат выражения A*AT – K * F:")
-            matrix_result = A*A.transpose() - F*k
-            print_matrix(matrix_result)
+            print("Результат выражения A*AT – K * F:\n", A*A.transpose() - F*k)
         else:
             G = np.tri(n)*A
-            matrix_result = (np.linalg.inv(A) + G - np.linalg.inv(F)) * k
-            print("Результат выражения (A^(-1) +G-F^(-1))*K:\n", matrix_result)
+            print("Результат выражения (A^(-1) +G-F^(-1))*K:\n", (np.linalg.inv(A) + G - np.linalg.inv(F)) * k)
 
     except np.linalg.LinAlgError:
         print("Одна из матриц является вырожденной (определитель равен 0), поэтому обратную матрицу найти невозможно.")
@@ -148,7 +130,7 @@ try:
 
     number_row = []
     for i in range(1, n+1):
-        number_row += [i]+n
+        number_row += [i]*n
     number_item = list(range(1, n+1))*n
     df = pd.DataFrame({"Значения": A.flatten(), "Номер строки": number_row, "Номер элемента в строке": number_item})
     fig, axs = plt.subplots(2, 2, figsize=(11, 8))
@@ -163,7 +145,7 @@ try:
     sns.kdeplot(data=df, x="Номер элемента в строке", y="Значения", hue="Номер строки", palette="Set2")
     plt.subplot(224)
     plt.title("Использование функции heatmap")
-    sns.heatmap(data=A, annot=True, fnt="d", linewidths=.5)
+    sns.heatmap(data=A, annot=True, fmt="d", linewidths=.5)
     plt.suptitle("Использование библиотеки seaborn")
     plt.tight_layout()
     plt.show()
