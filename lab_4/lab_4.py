@@ -34,8 +34,8 @@ try:
     np.set_printoptions(linewidth=1000)
 
     # Создание и заполнение матрицы A
-    #A = np.random.randint(-10.0, 10.0, (n, n))
-    A = np.array([[i + j * n + 1 for i in range(n)] for j in range(n)])  # задание матрицы для тестирования
+    A = np.random.randint(-10.0, 10.0, (n, n))
+    #A = np.array([[i + j * n for i in range(n)] for j in range(n)])  # задание матрицы для тестирования
 
     print("\nМатрица A:\n", A)
 
@@ -128,6 +128,7 @@ try:
         number_row += [i]*n
     number_item = list(range(1, n+1))*n
     df = pd.DataFrame({"Значения": F.flatten(), "Номер строки": number_row, "Номер элемента в строке": number_item})
+    print(F.flatten())
     fig, axs = plt.subplots(2, 2, figsize=(11, 8))
     plt.subplot(221)
     plt.title("Использование функции lineplot")
@@ -137,7 +138,7 @@ try:
     sns.boxplot(x="Номер строки", y="Значения", palette="Set2", data=df)
     plt.subplot(223)
     plt.title("Использование функции kdeplot")
-    sns.kdeplot(data=df, x="Номер элемента в строке", y="Значения", hue="Номер строки", palette="Set2")
+    sns.kdeplot(data=df, x="Номер элемента в строке", y="Значения", hue="Номер строки", palette="Set2", warn_singular=False)
     plt.subplot(224)
     plt.title("Использование функции heatmap")
     sns.heatmap(data=F, annot=True, fmt="d", linewidths=.5)
