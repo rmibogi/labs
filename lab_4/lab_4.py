@@ -34,10 +34,10 @@ try:
     np.set_printoptions(linewidth=1000)
 
     # Создание и заполнение матрицы A
-    A = np.random.randint(-10.0, 10.0, (n, n))
-    print("\nМатрица A:\n", A)
+    #A = np.random.randint(-10.0, 10.0, (n, n))
+    A = np.array([[i + j * n + 1 for i in range(n)] for j in range(n)])  # задание матрицы для тестирования
 
-    A = list([[i+j*n for i in range(n)] for j in range(n)])        # задание матрицы для тестирования
+    print("\nМатрица A:\n", A)
 
     # Создание подматриц
     submatrix_length = n//2
