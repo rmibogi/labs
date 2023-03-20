@@ -37,7 +37,7 @@ try:
     A = np.random.randint(-10.0, 10.0, (n, n))
     print("\nМатрица A:\n", A)
 
-    A = [[i+j*n for i in range(n)] for j in range(n)]        # задание матрицы для тестирования
+    A = list([[i+j*n for i in range(n)] for j in range(n)])        # задание матрицы для тестирования
 
     # Создание подматриц
     submatrix_length = n//2
