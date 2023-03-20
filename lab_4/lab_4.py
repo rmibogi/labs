@@ -28,7 +28,7 @@ try:
     k = int(input())
     print("Введите число число N, большее 3, являющееся порядком квадратной матрицы: ")
     n = int(input())
-    while n <= 3:  # ошибка в случае введения слишком малого порядка матрицы
+    while n < 3:  # ошибка в случае введения слишком малого порядка матрицы
         n = int(input("Вы ввели число, неподходящее по условию, введите число N, большее или равное 3:\n"))
 
     np.set_printoptions(linewidth=1000)
@@ -40,7 +40,7 @@ try:
     print("\nМатрица A:\n", A)
 
     # Создание подматриц
-    submatrix_length = n//2
+    submatrix_length = n//2             # длина подматрицы
     sub_matrix_B = np.array(A[:submatrix_length, :submatrix_length])
     sub_matrix_C = np.array(A[:submatrix_length, submatrix_length+n % 2:n])
     sub_matrix_E = np.array(A[submatrix_length+n % 2:n, submatrix_length+n % 2:n])
@@ -67,7 +67,7 @@ try:
         F[submatrix_length+n % 2:n, submatrix_length+n % 2:n] = sub_matrix_B
 
     print("\nОтформатированная матрица F:\n", F)
-
+    # Вычисляем выражение
     try:
         if np.linalg.det(A) > sum(np.diagonal(F)):
             print("\nРезультат выражения A*AT – K * F:\n", A*A.transpose() - F*k)
@@ -79,27 +79,27 @@ try:
         print("Одна из матриц является вырожденной (определитель равен 0), поэтому обратную матрицу найти невозможно.")
 
     print("\nМатрица, которая используется при построение графиков:\n", F)
-
+    # Использование библиотеки matplotlib
     av = [np.mean(abs(F[i, ::])) for i in range(n)]
-    av = int(sum(av))
+    av = int(sum(av))                                       # сумма средних значений строк (используется при создании третьего графика)
     fig, axs = plt.subplots(2, 2, figsize=(11, 8))
     x = list(range(1, n+1))
     for j in range(n):
-        y = list(F[j, ::])
+        y = list(F[j, ::])                                      # обычный график
         axs[0, 0].plot(x, y, ',-', label=f"{j+1} строка.")
         axs[0, 0].set(title="График с использованием функции plot:", xlabel='Номер элемента в строке', ylabel='Значение элемента')
         axs[0, 0].grid()
-        axs[0, 1].bar(x, y, 0.4, label=f"{j+1} строка.")
+        axs[0, 1].bar(x, y, 0.4, label=f"{j+1} строка.")                # гистограмма
         axs[0, 1].set(title="График с использованием функции bar:", xlabel='Номер элемента в строке', ylabel='Значение элемента')
         if n <= 10:
             axs[0, 1].legend(loc='lower right')
             axs[0, 1].legend(loc='lower right')
-    explode = [0]*(n-1)
+    explode = [0]*(n-1)                                     # отношение средних значений от каждой строки
     explode.append(0.1)
     sizes = [round(np.mean(abs(F[i, ::])) * 100/av, 1) for i in range(n)]
     axs[1, 0].set_title("График с ипользованием функции pie:")
     axs[1, 0].pie(sizes, labels=list(range(1, n+1)), explode=explode, autopct='%1.1f%%', shadow=True)
-    def heatmap(data, row_labels, col_labels, ax, cbar_kw={}, **kwargs):
+    def heatmap(data, row_labels, col_labels, ax, cbar_kw={}, **kwargs):            # аннотированная тепловая карта
         im = ax.imshow(data, **kwargs)
         cbar = ax.figure.colorbar(im, ax=ax, **cbar_kw)
         ax.set_xticks(np.arange(data.shape[1]), labels=col_labels)
@@ -122,13 +122,12 @@ try:
     plt.suptitle("Использование библиотеки matplotlib")
     plt.tight_layout()
     plt.show()
-
+    # использование библиотеки seaborn
     number_row = []
     for i in range(1, n+1):
         number_row += [i]*n
     number_item = list(range(1, n+1))*n
     df = pd.DataFrame({"Значения": F.flatten(), "Номер строки": number_row, "Номер элемента в строке": number_item})
-    print(F.flatten())
     fig, axs = plt.subplots(2, 2, figsize=(11, 8))
     plt.subplot(221)
     plt.title("Использование функции lineplot")
