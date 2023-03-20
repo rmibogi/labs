@@ -35,7 +35,7 @@ try:
 
     # Создание и заполнение матрицы A
     A = np.random.randint(-10.0, 10.0, (n, n))
-    #A = np.array([[i + j * n for i in range(n)] for j in range(n)])  # задание матрицы для тестирования
+    #A = np.array([[i + j * n + 1 for i in range(n)] for j in range(n)])  # задание матрицы для тестирования
 
     print("\nМатрица A:\n", A)
 
