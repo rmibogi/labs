@@ -137,7 +137,7 @@ try:
     sns.boxplot(x="Номер строки", y="Значения", palette="Set2", data=df)
     plt.subplot(223)
     plt.title("Использование функции kdeplot")
-    sns.kdeplot(data=df, x="Номер элемента в строке", y="Значения", hue="Номер строки", palette="Set2", warn_singular=False)
+    sns.kdeplot(data=df, x="Номер элемента в строке", y="Значения", hue="Номер строки", palette="Set2")
     plt.subplot(224)
     plt.title("Использование функции heatmap")
     sns.heatmap(data=F, annot=True, fmt="d", linewidths=.5)
