@@ -1,3 +1,5 @@
+import time
+
 def recursive_f(n):
     if n < 2:
         return 1
@@ -13,4 +15,10 @@ def iterative_f(n):
         f0, f1, f2 = f1, f2, fn
     return fn if n > 2 else f2
 
-print(recursive_f(3), iterative_f(3))
+start = time.time()
+n = 60
+print(recursive_f(n))
+print(iterative_f(n))
+end = time.time()
+
+print(end-start)
