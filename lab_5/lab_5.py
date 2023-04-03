@@ -35,15 +35,15 @@ table_data = []
 for i, n in enumerate(n_values):
     table_data.append([n, recursive_times[i], iterative_times[i]])
 
-print('{:<7}|{:<22}|{:<22}'.format('n', 'Recursive time (s)', 'Iterative time (s)'))
+print('{:<7}|{:<22}|{:<22}'.format('n', 'Время рекурсии (с)', 'Время итерации (с)'))
 print('-' * 55)
 for data in table_data:
     print('{:<7}|{:<22}|{:<22}'.format(data[0], data[1], data[2]))
 
-plt.plot(n_values, recursive_times, label='Recursive')
-plt.plot(n_values, iterative_times, label='Iterative')
+plt.plot(n_values, recursive_times, label='Рекурсия')
+plt.plot(n_values, iterative_times, label='Итерация')
 plt.xlabel('n')
-plt.ylabel('Time (s)')
-plt.title('Comparing Recursive and Iterative Approaches')
+plt.ylabel('Время (с)')
+plt.title('Сравнение рекурсивного и итерационного подхода')
 plt.legend()
 plt.show()
