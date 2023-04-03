@@ -1,13 +1,13 @@
 import time
 import matplotlib.pyplot as plt
 
-def recursive_f(n):
+def recursive_f(n):         # рекурсивное решение
     if n < 2:
         return 1
     else:
         return 2 * recursive_f(n-1) + recursive_f(n-3)
 
-def iterative_f(n):
+def iterative_f(n):         # итерационное решение
     if n < 2:
         return 1
     f0, f1, f2 = 1, 1, 3
@@ -19,13 +19,13 @@ def iterative_f(n):
 try:
     print("Введите число n, являющееся входным для функции F(x<2) = 1; F(n) = 2F(n-1) + F(n-3),\nи на основе которого будет строиться сравнительная таблица: ")
     n = int(input())
-    while n < 1:  # ошибка в случае введения слишком малого порядка матрицы
+    while n < 1:  # ошибка в случае введения не натурального числа
         n = int(input("\nВы ввели не натуральное число, функция определенна лишь в области натуральных чисел. Введите натуральное число:\n"))
 
     if n > 100000:
         print("\nРабота программы может занять существенное время, ожидайте...")
 
-    start = time.time()
+    start = time.time()         # счетчик времени и результат работы итерационного подхода
     result = iterative_f(n)
     end = time.time()
     print("\nРезультат работы итерационного подхода:", result, "\nВремя работы:", end - start)
@@ -33,20 +33,20 @@ try:
     if 40 < n < 100000:
         print("\nРабота рекурсивного подхода может занять существенное время, ожидайте...")
 
-    start = time.time()
+    start = time.time()         # счетчик времени и результат работы рекурсивного подхода
     result = recursive_f(n)
     end = time.time()
     print("\nРезультат работы рекурсивного подхода:", result, "\nВремя работы:", end - start)
 
     print("\nПрограмма формирует сравнительную таблицу и графики времени вычисления рекурсивным и итерационным подходом для n чисел, ожидайте...\n")
 
-    recursive_times = []
+    recursive_times = []                # создание списков для дальнейшего построения таблицы
     recursive_values = []
     iterative_times = []
     iterative_values = []
     n_values = list(range(1, n + 1))
 
-    for n in n_values:
+    for n in n_values:                  # заполнение списков данными
         start = time.time()
         recursive_values.append(recursive_f(n))
         end = time.time()
@@ -57,11 +57,11 @@ try:
         end = time.time()
         iterative_times.append(end - start)
 
-    table_data = []
+    table_data = []             # создание и заполнение последующей таблицы
     for i, n in enumerate(n_values):
         table_data.append([n, recursive_times[i], iterative_times[i], recursive_values[i], iterative_values[i]])
 
-    print('{:<7}|{:<22}|{:<22}|{:<22}|{:<22}'.format('n', 'Время рекурсии (с)', 'Время итерации (с)', 'Значение рекурсии', 'Значение итерации'))
+    print('{:<7}|{:<22}|{:<22}|{:<22}|{:<22}'.format('n', 'Время рекурсии (с)', 'Время итерации (с)', 'Значение рекурсии', 'Значение итерации'))        # вывод таблицы
     print('-' * 110)
     for data in table_data:
         print('{:<7}|{:<22}|{:<22}|{:<22}|{:<22}'.format(data[0], data[1], data[2], data[3], data[4]))
@@ -72,7 +72,7 @@ try:
           "реккурентной функции. В то же время итерационный подход сохраняет скорость работы меньше секунды, даже для n равного 180000,\n"
           "что говорит о его высокой эффективности и применимости даже для больших чисел.")
 
-    plt.plot(n_values, recursive_times, label='Рекурсия')
+    plt.plot(n_values, recursive_times, label='Рекурсия')           # вывод графиков
     plt.plot(n_values, iterative_times, label='Итерация')
     plt.xlabel('n')
     plt.ylabel('Время (с)')
