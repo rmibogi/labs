@@ -4,7 +4,5 @@
 
 F(x<2) = 1; F(n) = 2F(n-1) + F(n-3)
 
-# Результаты сравнения
-
 ### Графики
 ![comparative_graphics.png](comparative_graphics.png)
