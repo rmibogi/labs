@@ -1,10 +1,14 @@
 def recursive_f(n):
+    if not isinstance(n, int) or n < 1:
+        raise ValueError("Input must be a positive integer")
     if n < 2:
         return 1
     else:
         return 2 * recursive_f(n-1) + recursive_f(n-3)
 
 def iterative_f(n):
+    if not isinstance(n, int) or n < 1:
+        raise ValueError("Input must be a positive integer")
     if n < 2:
         return 1
     f0, f1, f2 = 1, 1, 3
