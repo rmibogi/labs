@@ -32,3 +32,11 @@ def calculate_f(n):
     return fn[n]
 
 print(calculate_f(6))
+
+def iterative_f(n):
+    fn = [1] * (n + 1)
+    for i in range(2, n + 1):
+        fn[i] = 2 * fn[i-1] + fn[i-3]
+    return fn[n]
+
+n + 1 + (n - 1) * 3 = n + 1 + 3n -3
