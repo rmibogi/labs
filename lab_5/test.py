@@ -38,3 +38,5 @@ def iterative_f(n):
     for i in range(2, n + 1):
         fn[i] = 2 * fn[i-1] + fn[i-3]
     return fn[n]
+
+3n + n
