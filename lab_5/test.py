@@ -32,4 +32,3 @@ def calculate_f(n):
     return fn[n]
 
 print(calculate_f(6))
-print(iterative_f(6))
