@@ -16,9 +16,20 @@ def iterative_f(n):
     return fn if n > 2 else f2
 
 start = time.time()
-n = 10 ** 1000000000000000000
+n = 2
 #print(recursive_f(n))
-print(iterative_f(n))
+#print(iterative_f(n))
 end = time.time()
 
-print(end-start)
+#print(end-start)
+
+fn = 1
+
+def calculate_f(n):
+    fn = [1] * (n + 1)
+    for i in range(2, n + 1):
+        fn[i] = 2 * fn[i-1] + fn[i-3]
+    return fn[n]
+
+print(calculate_f(6))
+print(iterative_f(6))
