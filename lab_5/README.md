@@ -4,7 +4,7 @@
 
 F(x<2) = 1; F(n) = 2F(n-1) + F(n-3)
 
-![Ссылка на документ с результатами сравнения](https://docs.google.com/document/d/1GwFzeON4sGH2XLRnKAmH7UYz6a01ki4IfrwWbBmg5aw/edit?usp=sharing)
+### [Ссылка на документ с результатами сравнения](https://docs.google.com/document/d/1GwFzeON4sGH2XLRnKAmH7UYz6a01ki4IfrwWbBmg5aw/edit?usp=sharing)
 
 ### Графики
 ![comparative_graphics.png](comparative_graphics.png)
