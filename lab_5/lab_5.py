@@ -13,7 +13,7 @@ def recursive_f(n):         # рекурсивное решение
     else:
         return 2 * recursive_f(n-1) + recursive_f(n-3)
 
-def iterative_f(n):
+def iterative_f(n):         # итерационное решение
     fn = [1] * 4
     for i in range(2, n + 1):
         fn[3] = 2 * fn[2] + fn[0]
