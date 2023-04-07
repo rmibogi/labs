@@ -15,13 +15,6 @@ def iterative_f(n):
         f0, f1, f2 = f1, f2, fn
     return fn if n > 2 else f2
 
-def iterative_f(n):
-    f0, f1, f2 = 1, 1, 3
-    for i in range(1, n + 1):
-        fn = 2 * f2 + f0
-        f0, f1, f2 = f1, f2, fn
-    return fn
-
 start = time.time()
 n = 4
 #print(recursive_f(n))
