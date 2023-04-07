@@ -14,10 +14,11 @@ def recursive_f(n):         # рекурсивное решение
         return 2 * recursive_f(n-1) + recursive_f(n-3)
 
 def iterative_f(n):
-    fn = [1] * (n + 1)
+    fn = [1] * 4
     for i in range(2, n + 1):
-        fn[i] = 2 * fn[i-1] + fn[i-3]
-    return fn[n]
+        fn[3] = 2 * fn[2] + fn[0]
+        fn[0], fn[1], fn[2] = fn[1], fn[2], fn[3]
+    return fn[3]
 
 try:
     print("Введите натуральное число n, являющееся входным для функции F(x<2) = 1; F(n) = 2F(n-1) + F(n-3),\nи на основе которого будет строиться сравнительная таблица: ")
