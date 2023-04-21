@@ -59,7 +59,7 @@ while T < 0 or T >= K - 1:
 print("\nНайденные варианты паролей. Если первый символ буква, она должна быть заглавной, остальные буквы всегда строчными. Первые Т символов – латинские буквы, остальные - латинские буквы или цифры. \nОбязательно наличие как минимум двух цифр. Все символы должны быть разные:")
 passwords = []
 generate_passwords(K, T, passwords=passwords)
-print(passwords)
+print(*passwords)
 
 max_distance_password = max_distance_password(passwords)
 print(f"\nНаибольшее геометрическое расстояние между точками {max_distance_password[0]} и {max_distance_password[1]}")
