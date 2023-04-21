@@ -17,12 +17,12 @@ while T < 0 or T >= K:
     T = int(input("Ошибка: введите натуральное число T, удовлетворяющее условию T < K: "))
 
 count = 0
-letters = 'abcdefghijklmnopqrstuvwxyz'
+letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 numbers = '0123456789'
 
 combinations = itertools.product(letters + numbers, repeat=K)
 
-print("\nНайденные варианты паролей:")
+print("\nНайденные варианты паролей. Первые Т символов – латинские буквы, остальные - латинские буквы или цифры. \nОбязательно наличие как минимум одной цифры. Все символы должны быть разные:")
 
 for combination in combinations:
     password = ''.join(combination)

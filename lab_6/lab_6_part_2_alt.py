@@ -16,7 +16,9 @@ def generate_passwords(K, T, password="", num_digits=0, first_letter=True):
         for c in "abcdefghijklmnopqrstuvwxyz0123456789":
             if c not in password:
                 if c.isdigit():
-                    generate_passwords(K, T, password + c, num_digits + 1, first_letter)
+                    generate_passwords(K, T, password + c, num_digits + 1, False)
+                if first_letter:
+                    generate_passwords(K, T, password + c.upper(), num_digits, False)
                 else:
                     generate_passwords(K, T, password + c, num_digits, first_letter)
 
@@ -30,7 +32,7 @@ T = int(input("Введите натуральное число T < K, коли�
 while T < 0 or T >= K - 1:
     T = int(input("Ошибка: введите натуральное число T, удовлетворяющее условию T < K - 1: "))
 
-print("\nНайденные варианты паролей:")
+print("\nНайденные варианты паролей. Если первая буква есть, она должна быть заглавной, остальные строчными. Первые Т символов – латинские буквы, остальные - латинские буквы или цифры. \nОбязательно наличие как минимум двух цифр. Все символы должны быть разные:")
 generate_passwords(K, T)
 
 print("\nКоличество найденных паролей:", count)
