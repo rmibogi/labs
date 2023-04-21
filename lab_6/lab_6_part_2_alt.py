@@ -6,8 +6,7 @@
 # Вариант 1.Пароль состоит из К символов. Первые Т символов – латинские буквы, остальные - латинские буквы или цифры.
 # Обязательно наличие как минимум одной цифры. Все символы должны быть разные. Составьте все возможные пароли.
 
-import math
-from scipy.spatial.distance import euclidean
+from math import sqrt
 
 def max_distance_password(passwords):
     max_distance = 0
@@ -16,9 +15,12 @@ def max_distance_password(passwords):
         for j in range(i+1, len(passwords)):
             p1 = list(map(ord, passwords[i]))
             p2 = list(map(ord, passwords[j]))
-            distance = euclidean(p1, p2)
-            if distance > max_distance:
-                max_distance = distance
+            euclidean = 0
+            for coord in range(len(p1)):
+                euclidean += (p1[coord] - p2[coord]) ** 2
+            euclidean = sqrt(euclidean)
+            if euclidean > max_distance:
+                max_distance = euclidean
                 max_distance_passwords = (passwords[i], passwords[j])
     return max_distance_passwords
 
