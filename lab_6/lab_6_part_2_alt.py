@@ -12,8 +12,8 @@ def max_distance_password(passwords):
     max_distance = 0
     max_distance_passwords = None
     for i in range(len(passwords)):
+        p1 = list(map(ord, passwords[i]))
         for j in range(i+1, len(passwords)):
-            p1 = list(map(ord, passwords[i]))
             p2 = list(map(ord, passwords[j]))
             euclidean = 0
             for coord in range(len(p1)):
