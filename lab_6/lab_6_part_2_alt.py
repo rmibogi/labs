@@ -9,23 +9,6 @@
 import math
 from scipy.spatial.distance import euclidean
 
-def password_metrics(p1, p2):
-    s1 = set(p1)
-    s2 = set(p2)
-    unique_chars = len(s1.symmetric_difference(s2))
-    return len(p1) * unique_chars
-
-def find_max_metric_password(passwords):
-    max_metric = -1
-    max_metric_password = 0
-    for i in range(len(passwords)):
-        for j in range(i+1, len(passwords)):
-            metric = password_metrics(passwords[i], passwords[j])
-            if metric > max_metric:
-                max_metric = metric
-                max_metric_password = passwords[i] if len(passwords[i]) > len(passwords[j]) else passwords[j]
-    return max_metric_password
-
 def max_distance_password(passwords):
     max_distance = 0
     max_distance_passwords = None
