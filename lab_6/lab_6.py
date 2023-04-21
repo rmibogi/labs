@@ -9,7 +9,7 @@
 def generate_passwords(K, T, password=""):
     if len(password) == K:
         if sum(c.isdigit() for c in password) >= 1:
-            print(password)
+            print(password, end= " ")
         return
     if len(password) < T:
         for c in "abcdefghijklmnopqrstuvwxyz":
@@ -20,4 +20,16 @@ def generate_passwords(K, T, password=""):
             if c not in password:
                 generate_passwords(K, T, password + c)
 
-generate_passwords(3, 2)
+print("Введите натуральное число K, количество символов из которых состоит пароль: ")
+K = int(input())
+while K < 0:  # ошибка в случае введения не натурального числа
+    K = int(input("\nВы ввели не натуральное число, функция определенна лишь в области натуральных чисел. Введите натуральное число:\n"))
+
+print("Введите натуральное число T, количество первых символов, которые будут латинскими буквами: ")
+T = int(input())
+while T < 0:  # ошибка в случае введения не натурального числа
+    T = int(input("\nВы ввели не натуральное число, функция определенна лишь в области натуральных чисел. Введите натуральное число:\n"))
+
+print("\nНайденные варианты паролей:")
+generate_passwords(K, T)
+
