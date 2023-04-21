@@ -46,4 +46,4 @@ def iterative_f(n):
         fn[0], fn[1], fn[2] = fn[1], fn[2], fn[3]
     return fn[3]
 
-print(iterative_f(5))
+print(iterative_f(6))
