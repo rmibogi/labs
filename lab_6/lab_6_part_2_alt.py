@@ -21,7 +21,7 @@ def max_distance_password(passwords):
             euclidean = sqrt(euclidean)
             if euclidean > max_distance:
                 max_distance = euclidean
-                max_distance_passwords = (passwords[i], passwords[j])
+                max_distance_passwords = (passwords[i], passwords[j], max_distance)
     return max_distance_passwords
 
 def generate_passwords(K, T, password="", num_digits=0, first_letter=True, passwords=[]):
@@ -64,6 +64,6 @@ generate_passwords(K, T, passwords=passwords)
 print(*passwords)
 
 max_distance_password = max_distance_password(passwords)
-print(f"\nНаибольшее геометрическое расстояние между точками {max_distance_password[0]} и {max_distance_password[1]}")
+print(f"\nНаибольшее геометрическое расстояние между точками {max_distance_password[0]} и {max_distance_password[1]}, оно равно {max_distance_password[2]}")
 
 print("\nКоличество найденных паролей:", count)
