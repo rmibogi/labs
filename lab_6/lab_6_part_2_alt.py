@@ -63,7 +63,7 @@ passwords = []
 generate_passwords(K, T, passwords=passwords)
 print(*passwords)
 
-max_distance_password = max_distance_password(passwords)
-print(f"\nНаибольшее геометрическое расстояние между точками {max_distance_password[0]} и {max_distance_password[1]}")
+max_distance_passwords = max_distance_password(passwords)
+print(f"\nНаибольшее геометрическое расстояние между точками {max_distance_password[0]} и {max_distance_password[1]} и оно равно {max_distance_passwords}")
 
 print("\nКоличество найденных паролей:", count)
