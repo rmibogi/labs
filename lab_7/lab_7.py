@@ -26,10 +26,6 @@ class PasswordGenerator:
         self.max_distance_passwords = []
         self.min_dist = min_dist
 
-    def generate_passwords(self):
-        self.passwords = []
-        self._generate_password('', self.length, 0, set())
-
     def _generate_password(self, prefix, remaining_length):
         if remaining_length == 0:
             if self._is_valid_password(prefix):
