@@ -37,12 +37,10 @@ class PasswordGenerator:
             return
 
         if letter_count < self.t:
-            # Generate uppercase letter for first T characters
             for char in 'ABCDWXYZ':
                 if char not in used_letters:
                     self._generate_password(prefix + char, remaining_length - 1, letter_count + 1, used_letters.union({char}))
         else:
-            # Generate lowercase letter or digit for remaining characters
             for char in 'abcdwxyz0123456789':
                 if char not in used_letters:
                     self._generate_password(prefix + char, remaining_length - 1, letter_count, used_letters.union({char}))
