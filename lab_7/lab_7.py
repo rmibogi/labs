@@ -7,14 +7,15 @@
 
 from math import sqrt
 
+
 def euclidean(password_1, password_2):
     p1 = list(map(ord, password_1))
     p2 = list(map(ord, password_2))
-    euclidean = 0
+    euclidean_result = 0
     for coord in range(len(p1)):
-        euclidean += (p1[coord] - p2[coord]) ** 2
-    euclidean = sqrt(euclidean)
-    return euclidean
+        euclidean_result += (p1[coord] - p2[coord]) ** 2
+    euclidean_result = sqrt(euclidean_result)
+    return euclidean_result
 
 
 class PasswordGenerator:
@@ -25,6 +26,11 @@ class PasswordGenerator:
         self.passwords = []
         self.max_distance_passwords = []
         self.min_dist = min_dist
+
+    def generate_passwords(self):
+        self.passwords = []
+        self._generate_password('', self.length)
+        self.filter_passwords(self.passwords, self.min_dist)
 
     def _generate_password(self, prefix, remaining_length):
         if remaining_length == 0:
@@ -52,11 +58,6 @@ class PasswordGenerator:
 
         return True
 
-    def generate_passwords(self):
-        self.passwords = []
-        self._generate_password('', self.length)
-        self.filter_passwords(self.passwords, self.min_dist)
-
     def filter_passwords(self, passwords, min_dist_in):
         self.max_distance_passwords = []
         for i in range(len(passwords)):
@@ -74,7 +75,8 @@ K = int(input("Введите число K >= 2, количество симво
 while K < 2 or K > 26:
     K = int(input("Ошибка: введите натуральное число K <= 26: "))
 
-T = int(input("Введите натуральное число T < K - 1 <= 8, количество первых символов, которые будут заглавными латинскими буквами: \n"))
+T = int(input(
+    "Введите натуральное число T < K - 1 <= 8, количество первых символов, которые будут заглавными латинскими буквами: \n"))
 while T < 0 or T >= K - 1 or T > 8:
     T = int(input("Ошибка: введите натуральное число T, удовлетворяющее условию T < K - 1 <= 8: "))
 
