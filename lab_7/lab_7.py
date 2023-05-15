@@ -19,18 +19,16 @@ def euclidean(password_1, password_2):
 
 
 class PasswordGenerator:
-    def __init__(self, length, digits_count, t, min_dist):
+    def __init__(self, length, digits_count, t):
         self.length = length
         self.digits_count = digits_count
         self.t = t
         self.passwords = []
         self.max_distance_passwords = []
-        self.min_dist = min_dist
 
     def generate_passwords(self):
         self.passwords = []
         self._generate_password('')
-        self.filter_passwords(self.passwords, self.min_dist)
 
     def _generate_password(self, prefix):
         if len(prefix) == self.length:
@@ -54,12 +52,12 @@ class PasswordGenerator:
 
         return True
 
-    def filter_passwords(self, passwords, min_dist_in):
+    def filter_passwords(self, passwords, min_dist):
         self.max_distance_passwords = []
         for i in range(len(passwords)):
             is_max_distance = True
             for j in range(len(self.max_distance_passwords)):
-                if euclidean(passwords[i], self.max_distance_passwords[j]) <= min_dist_in:
+                if euclidean(passwords[i], self.max_distance_passwords[j]) <= min_dist:
                     is_max_distance = False
                     break
             if is_max_distance:
@@ -82,7 +80,7 @@ while P < 0:
 
 print("\nНайденные варианты паролей (это может занять некоторое время):")
 
-generator = PasswordGenerator(length=K, digits_count=2, t=T, min_dist=P)
+generator = PasswordGenerator(length=K, digits_count=2, t=T)
 generator.generate_passwords()
 
 for password in generator.passwords:
@@ -90,6 +88,8 @@ for password in generator.passwords:
 print()
 
 print(f"\nПароли с геометрическим расстоянием больше {P}:")
+
+generator.filter_passwords(passwords=generator.passwords, min_dist=P)
 
 if len(generator.max_distance_passwords) != 1:
     for password in generator.max_distance_passwords:
