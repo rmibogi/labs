@@ -48,10 +48,6 @@ class PasswordGenerator:
                     self._generate_password(prefix + char, remaining_length - 1)
 
     def _is_valid_password(self, password):
-        lowercase_chars = password[self.t:].lower()
-        if len(set(lowercase_chars)) != len(lowercase_chars):
-            return False
-
         digit_count = sum(char.isdigit() for char in password)
         if digit_count < self.digits_count:
             return False
