@@ -29,11 +29,11 @@ class PasswordGenerator:
 
     def generate_passwords(self):
         self.passwords = []
-        self._generate_password('', self.length)
+        self._generate_password('')
         self.filter_passwords(self.passwords, self.min_dist)
 
-    def _generate_password(self, prefix, remaining_length):
-        if remaining_length == 0:
+    def _generate_password(self, prefix):
+        if len(prefix) == self.length:
             if self._is_valid_password(prefix):
                 self.passwords.append(prefix)
             return
@@ -41,11 +41,11 @@ class PasswordGenerator:
         if len(prefix) < self.t:
             for char in 'ABCDWXYZ':
                 if char not in prefix:
-                    self._generate_password(prefix + char, remaining_length - 1)
+                    self._generate_password(prefix + char)
         else:
             for char in 'abcdwxyz0123456789':
                 if char not in prefix:
-                    self._generate_password(prefix + char, remaining_length - 1)
+                    self._generate_password(prefix + char)
 
     def _is_valid_password(self, password):
         digit_count = sum(char.isdigit() for char in password)
