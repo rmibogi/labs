@@ -46,9 +46,6 @@ class PasswordGenerator:
                     self._generate_password(prefix + char, remaining_length - 1)
 
     def _is_valid_password(self, password):
-        if not password[:self.t].isalpha():
-            return False
-
         lowercase_chars = password[self.t:].lower()
         if len(set(lowercase_chars)) != len(lowercase_chars):
             return False
@@ -77,13 +74,13 @@ class PasswordGenerator:
         return self.max_distance_passwords
 
 
-K = int(input("Введите число K >= 1, количество символов из которых состоит пароль: \n"))
-while K <= 0:
-    K = int(input("Ошибка: введите натуральное число K: "))
+K = int(input("Введите число K >= 2, количество символов из которых состоит пароль: \n"))
+while K < 2 or K > 26:
+    K = int(input("Ошибка: введите натуральное число K <= 26: "))
 
-T = int(input("Введите натуральное число T < K - 1, количество первых символов, которые будут заглавными латинскими буквами: \n"))
-while T < 0 or T >= K - 1:
-    T = int(input("Ошибка: введите натуральное число T, удовлетворяющее условию T < K - 1: "))
+T = int(input("Введите натуральное число T < K - 1 <= 8, количество первых символов, которые будут заглавными латинскими буквами: \n"))
+while T < 0 or T >= K - 1 or T > 8:
+    T = int(input("Ошибка: введите натуральное число T, удовлетворяющее условию T < K - 1 <= 8: "))
 
 P = int(input("Введите натуральное число P, минимальное геометрическое расстояние между двумя паролями: \n"))
 while P < 0:
