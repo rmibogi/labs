@@ -30,20 +30,20 @@ class PasswordGenerator:
         self.passwords = []
         self._generate_password('', self.length, 0, set())
 
-    def _generate_password(self, prefix, remaining_length, letter_count, used_letters):
+    def _generate_password(self, prefix, remaining_length):
         if remaining_length == 0:
             if self._is_valid_password(prefix):
                 self.passwords.append(prefix)
             return
 
-        if letter_count < self.t:
+        if len(prefix) < self.t:
             for char in 'ABCDWXYZ':
-                if char not in used_letters:
-                    self._generate_password(prefix + char, remaining_length - 1, letter_count + 1, used_letters.union({char}))
+                if char not in prefix:
+                    self._generate_password(prefix + char, remaining_length - 1)
         else:
             for char in 'abcdwxyz0123456789':
-                if char not in used_letters:
-                    self._generate_password(prefix + char, remaining_length - 1, letter_count, used_letters.union({char}))
+                if char not in prefix:
+                    self._generate_password(prefix + char, remaining_length - 1)
 
     def _is_valid_password(self, password):
         if not password[:self.t].isalpha():
@@ -61,7 +61,7 @@ class PasswordGenerator:
 
     def generate_passwords(self):
         self.passwords = []
-        self._generate_password('', self.length, 0, set())
+        self._generate_password('', self.length)
         self.filter_passwords(self.passwords, self.min_dist)
 
     def filter_passwords(self, passwords, min_dist_in):
