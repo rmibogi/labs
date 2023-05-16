@@ -19,10 +19,10 @@ def euclidean(password_1, password_2):
 
 
 class PasswordGenerator:
-    def __init__(self, length, digits_count, t):
+    def __init__(self, length, digits_count, first_letters):
         self.length = length
         self.digits_count = digits_count
-        self.t = t
+        self.first_letters = first_letters
         self.passwords = []
         self.max_distance_passwords = []
 
@@ -35,7 +35,7 @@ class PasswordGenerator:
                 self.passwords.append(prefix)
             return
 
-        if len(prefix) < self.t:
+        if len(prefix) < self.first_letters:
             for char in 'ABCDWXYZ':
                 if char not in prefix:
                     self._generate_password(prefix + char)
@@ -79,7 +79,7 @@ while P < 0:
 
 print("\nНайденные варианты паролей (это может занять некоторое время):")
 
-generator = PasswordGenerator(length=K, digits_count=2, t=T)
+generator = PasswordGenerator(length=K, digits_count=2, first_letters=T)
 generator.generate_passwords()
 
 for password in generator.passwords:
