@@ -86,7 +86,7 @@ for password in generator.passwords:
     print(password, end=" ")
 print()
 
-print(f"\nПароли с геометрическим расстоянием больше {P}:")
+print(f"\nПароли с геометрическим расстоянием больше {P} (это может занять некоторое время):")
 
 generator.filter_passwords(passwords=generator.passwords, min_dist=P)
 
