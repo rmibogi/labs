@@ -27,7 +27,6 @@ class PasswordGenerator:
         self.max_distance_passwords = []
 
     def generate_passwords(self):
-        self.passwords = []
         self._generate_password('')
 
     def _generate_password(self, prefix):
