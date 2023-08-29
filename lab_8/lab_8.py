@@ -12,6 +12,7 @@
 # текстовое поле, кнопка.
 
 import tkinter as tk
+from tkinter import messagebox
 from math import sqrt
 
 
@@ -26,12 +27,63 @@ def euclidean(password_1, password_2):
 
 
 class PasswordGenerator:
-    def __init__(self, length, digits_count, first_letters_count):
-        self.length = length
-        self.digits_count = digits_count
-        self.first_letters_count = first_letters_count
-        self.passwords = []
-        self.max_distance_passwords = []
+    def __init__(self, main):
+        self.conditions = True
+
+        self.main = main
+        self.label_main = tk.Label(main,
+                                   text="Пароль состоит из К символов. Первые Т символов – заглавные латинские буквы из набора ABCDWXYZ, "
+                                        "\nостальные - латинские буквы или цифры из набора abcdwxyz0123456789. Обязательно наличие как минимум двух цифр. "
+                                        "\nВсе символы должны быть разные. Составьте все возможные пароли.")
+
+        self.label1 = tk.Label(main, text="Введите число K >= 2, количество символов из которых состоит пароль:")
+        self.entry1 = tk.Entry(main, width=30, justify='center')
+
+        self.label2 = tk.Label(main,
+                               text="Введите натуральное число T < K - 1 <= 8, количество первых символов, которые будут заглавными латинскими буквами:")
+        self.entry2 = tk.Entry(main, width=30, justify='center')
+
+        self.label3 = tk.Label(main,
+                               text="Введите натуральное число P, минимальное геометрическое расстояние между двумя паролями:")
+        self.entry3 = tk.Entry(main, width=30, justify='center')
+
+        self.button_main = tk.Button(main, text="Составить пароли", command=self.results)
+
+        self.label_main.pack()
+        self.label1.pack()
+        self.entry1.pack()
+        self.label2.pack()
+        self.entry2.pack()
+        self.label3.pack()
+        self.entry3.pack()
+        self.button_main.pack(expand=True)
+
+    def results(self):
+        try:
+            self.length = int(self.entry1.get())
+            if self.length < 2 or self.length > 26:
+                messagebox.showwarning(title="Ошибка", message="Ошибка: введите натуральное число 2 <= K <= 26.")
+                self.conditions = False
+            self.digits_count = 2
+            self.first_letters_count = int(self.entry2.get())
+            if self.first_letters_count < 0 or self.first_letters_count >= self.length - 1 or self.first_letters_count > 8:
+                messagebox.showwarning(title="Ошибка", message="Ошибка: введите натуральное число T, удовлетворяющее условию T < K - 1 <= 8.")
+                self.conditions = False
+            self.passwords = []
+            self.max_distance_passwords = []
+            self.min_dist = int(self.entry3.get())
+            if self.min_dist < 0:
+                messagebox.showwarning(title="Ошибка", message="Ошибка: введите натуральное число P.")
+                self.conditions = False
+
+            if self.conditions == True:
+                self.generate_passwords()
+                self.filter_passwords()
+
+                self.display_results()
+
+        except ValueError:
+            messagebox.showwarning(title="Ошибка", message="Введено не число.")
 
     def generate_passwords(self):
         self._generate_password('')
@@ -55,50 +107,53 @@ class PasswordGenerator:
         digit_count = sum(char.isdigit() for char in password)
         if digit_count < self.digits_count:
             return False
-
         return True
 
-    def filter_passwords(self, passwords, min_dist):
-        self.max_distance_passwords = []
-        for i in range(len(passwords)):
+    def filter_passwords(self):
+        for i in range(len(self.passwords)):
             is_max_distance = True
             for j in range(len(self.max_distance_passwords)):
-                if euclidean(passwords[i], self.max_distance_passwords[j]) <= min_dist:
+                if euclidean(self.passwords[i], self.max_distance_passwords[j]) <= self.min_dist:
                     is_max_distance = False
                     break
             if is_max_distance:
-                self.max_distance_passwords.append(passwords[i])
-        return self.max_distance_passwords
+                self.max_distance_passwords.append(self.passwords[i])
+
+    def display_results(self):
+        self.results_window = tk.Toplevel(self.main)
+        self.results_window.geometry('480x320')
+        self.results_window.title('Результаты')
+
+        self.password_list = tk.Listbox(self.results_window)
+        self.password_list.pack(side='left', fill='both', expand=1)
+
+        for password in self.passwords:
+            self.password_list.insert(tk.END, password)
+
+        self.scrollbar = tk.Scrollbar(self.results_window, command=self.password_list.yview)
+        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.password_list.config(yscrollcommand=self.scrollbar.set)
+
+        self.filtered_results_window = tk.Toplevel(self.main)
+        self.filtered_results_window.geometry('480x320')
+        self.filtered_results_window.title('Фильтрованные результаты')
+
+        self.filtered_list = tk.Listbox(self.filtered_results_window)
+        self.filtered_list.pack(side='left', fill='both', expand=1)
+
+        for password in self.max_distance_passwords:
+            self.filtered_list.insert(tk.END, password)
+
+        self.scrollbar_filtered = tk.Scrollbar(self.filtered_results_window, command=self.filtered_list.yview)
+        self.scrollbar_filtered.pack(side=tk.RIGHT, fill=tk.Y)
+        self.filtered_list.config(yscrollcommand=self.scrollbar_filtered.set)
 
 
-K = int(input("Введите число K >= 2, количество символов из которых состоит пароль: \n"))
-while K < 2 or K > 26:
-    K = int(input("Ошибка: введите натуральное число 2 <= K <= 26: "))
+root = tk.Tk()
+root.title("Генератор паролей")
+root.geometry("720x480")
+root.resizable(False, False)
 
-T = int(input(
-    "Введите натуральное число T < K - 1 <= 8, количество первых символов, которые будут заглавными латинскими буквами: \n"))
-while T < 0 or T >= K - 1 or T > 8:
-    T = int(input("Ошибка: введите натуральное число T, удовлетворяющее условию T < K - 1 <= 8: "))
+g = PasswordGenerator(root)
 
-P = int(input("Введите натуральное число P, минимальное геометрическое расстояние между двумя паролями: \n"))
-while P < 0:
-    P = int(input("Ошибка: введите натуральное число P: "))
-
-print("\nНайденные варианты паролей (это может занять некоторое время):")
-
-generator = PasswordGenerator(length=K, digits_count=2, first_letters_count=T)
-generator.generate_passwords()
-
-for password in generator.passwords:
-    print(password, end=" ")
-print()
-
-print(f"\nПароли с геометрическим расстоянием больше {P} (это может занять некоторое время):")
-
-generator.filter_passwords(passwords=generator.passwords, min_dist=P)
-
-if len(generator.max_distance_passwords) != 1:
-    for password in generator.max_distance_passwords:
-        print(password, end=" ")
-else:
-    print("Таких паролей нет.")
+root.mainloop()
