@@ -28,8 +28,6 @@ def euclidean(password_1, password_2):
 
 class PasswordGenerator:
     def __init__(self, main):
-        self.conditions = True
-
         self.main = main
         self.label_main = tk.Label(main,
                                    text="Пароль состоит из К символов. Первые Т символов – заглавные латинские буквы из набора ABCDWXYZ, "
@@ -60,6 +58,7 @@ class PasswordGenerator:
 
     def results(self):
         try:
+            self.conditions = True
             self.length = int(self.entry1.get())
             if self.length < 2 or self.length > 26:
                 messagebox.showwarning(title="Ошибка", message="Ошибка: введите натуральное число 2 <= K <= 26.")
