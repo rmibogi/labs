@@ -28,6 +28,8 @@ def euclidean(password_1, password_2):
 
 class PasswordGenerator:
     def __init__(self, main):
+        self.first_click = True
+
         self.main = main
         self.label_main = tk.Label(main,
                                    text="Пароль состоит из К символов. Первые Т символов – заглавные латинские буквы из набора ABCDWXYZ, "
@@ -79,7 +81,13 @@ class PasswordGenerator:
                 self.generate_passwords()
                 self.filter_passwords()
 
-                self.display_results()
+                if self.first_click == True:
+                    self.display_results()
+                    self.first_click = False
+                else:
+                    self.results_window.destroy()
+                    self.filtered_results_window.destroy()
+                    self.display_results()
 
         except ValueError:
             messagebox.showwarning(title="Ошибка", message="Введено не число.")
@@ -130,7 +138,7 @@ class PasswordGenerator:
             self.password_list.insert(tk.END, password)
 
         self.scrollbar = tk.Scrollbar(self.results_window, command=self.password_list.yview)
-        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.scrollbar.pack(side='right', fill='y')
         self.password_list.config(yscrollcommand=self.scrollbar.set)
 
         self.filtered_results_window = tk.Toplevel(self.main)
@@ -144,7 +152,7 @@ class PasswordGenerator:
             self.filtered_list.insert(tk.END, password)
 
         self.scrollbar_filtered = tk.Scrollbar(self.filtered_results_window, command=self.filtered_list.yview)
-        self.scrollbar_filtered.pack(side=tk.RIGHT, fill=tk.Y)
+        self.scrollbar_filtered.pack(side='right', fill='y')
         self.filtered_list.config(yscrollcommand=self.scrollbar_filtered.set)
 
 
