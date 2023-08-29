@@ -135,7 +135,7 @@ class PasswordGenerator:
         self.password_list.pack(side='left', fill='both', expand=1)
 
         for password in self.passwords:
-            self.password_list.insert(tk.END, password)
+            self.password_list.insert('end', password)
 
         self.scrollbar = tk.Scrollbar(self.results_window, command=self.password_list.yview)
         self.scrollbar.pack(side='right', fill='y')
@@ -149,7 +149,7 @@ class PasswordGenerator:
         self.filtered_list.pack(side='left', fill='both', expand=1)
 
         for password in self.max_distance_passwords:
-            self.filtered_list.insert(tk.END, password)
+            self.filtered_list.insert('end', password)
 
         self.scrollbar_filtered = tk.Scrollbar(self.filtered_results_window, command=self.filtered_list.yview)
         self.scrollbar_filtered.pack(side='right', fill='y')
