@@ -62,8 +62,8 @@ class PasswordGenerator:
         try:
             self.conditions = True
             self.length = int(self.entry1.get())
-            if self.length < 2 or self.length > 26:
-                messagebox.showwarning(title="Ошибка", message="Ошибка: введите натуральное число 2 <= K <= 26.")
+            if self.length < 2 or self.length > 18:
+                messagebox.showwarning(title="Ошибка", message="Ошибка: введите натуральное число 2 <= K <= 18.")
                 self.conditions = False
             self.digits_count = 2
             self.first_letters_count = int(self.entry2.get())
