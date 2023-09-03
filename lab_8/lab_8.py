@@ -68,7 +68,8 @@ class PasswordGenerator:
             self.digits_count = 2
             self.first_letters_count = int(self.entry2.get())
             if self.first_letters_count < 0 or self.first_letters_count >= self.length - 1 or self.first_letters_count > 8:
-                messagebox.showwarning(title="Ошибка", message="Ошибка: введите натуральное число T, удовлетворяющее условию T < K - 1 <= 8.")
+                messagebox.showwarning(title="Ошибка",
+                                       message="Ошибка: введите натуральное число T, удовлетворяющее условию T < K - 1 <= 8.")
                 self.conditions = False
             self.passwords = []
             self.max_distance_passwords = []
