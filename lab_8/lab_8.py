@@ -34,20 +34,20 @@ class PasswordGenerator:
         self.label_main = tk.Label(main,
                                    text="Программа генерирует пароли. Каждый пароль состоит из К символов. Первые Т символов – заглавные латинские буквы"
                                         "\nиз набора ABCDWXYZ, остальные - латинские буквы или цифры из набора abcdwxyz0123456789."
-                                        "\nОбязательно наличие как минимум двух цифр. Все символы должны быть разные. Составьте все возможные пароли.")
+                                        "\nОбязательно наличие как минимум двух цифр. Все символы должны быть разные. Составьте все возможные пароли.", font='Times 14')
 
-        self.label1 = tk.Label(main, text="Введите число K >= 2, количество символов из которых состоит пароль:")
-        self.entry1 = tk.Entry(main, width=30, justify='center')
+        self.label1 = tk.Label(main, text="Введите число K >= 2, количество символов из которых состоит пароль:", font='Times 14')
+        self.entry1 = tk.Entry(main, width=30, justify='center', font='Times 12')
 
         self.label2 = tk.Label(main,
-                               text="Введите натуральное число T < K - 1 <= 8, количество первых символов, которые будут заглавными латинскими буквами:")
-        self.entry2 = tk.Entry(main, width=30, justify='center')
+                               text="Введите натуральное число T < K - 1 <= 8, количество первых символов, которые будут заглавными латинскими буквами:", font='Times 14')
+        self.entry2 = tk.Entry(main, width=30, justify='center', font='Times 12')
 
         self.label3 = tk.Label(main,
-                               text="Введите натуральное число P, минимальное геометрическое расстояние между двумя паролями:")
-        self.entry3 = tk.Entry(main, width=30, justify='center')
+                               text="Введите натуральное число P, минимальное геометрическое расстояние между двумя паролями:", font='Times 14')
+        self.entry3 = tk.Entry(main, width=30, justify='center', font='Times 12')
 
-        self.button_main = tk.Button(main, text="Составить пароли", command=self.results)
+        self.button_main = tk.Button(main, text="Составить пароли", font='Times 18', command=self.results)
 
         self.label_main.pack()
         self.label1.pack()
@@ -159,7 +159,7 @@ class PasswordGenerator:
 
 root = tk.Tk()
 root.title("Генератор паролей")
-root.geometry("720x360")
+root.geometry("1080x360")
 root.resizable(False, False)
 
 g = PasswordGenerator(root)
