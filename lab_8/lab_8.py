@@ -159,7 +159,7 @@ class PasswordGenerator:
 
 root = tk.Tk()
 root.title("Генератор паролей")
-root.geometry("720x480")
+root.geometry("720x360")
 root.resizable(False, False)
 
 g = PasswordGenerator(root)
