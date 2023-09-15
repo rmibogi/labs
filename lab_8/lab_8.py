@@ -91,7 +91,7 @@ class PasswordGenerator:
                     self.display_results()
 
         except ValueError:
-            messagebox.showwarning(title="Ошибка", message="Введено не число.")
+            messagebox.showwarning(title="Ошибка", message="Введено не целое число, подходящее условиям.")
 
     def generate_passwords(self):
         self._generate_password('')
