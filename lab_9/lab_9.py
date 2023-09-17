@@ -4,6 +4,7 @@ from tkinter import *
 import re
 from tkinter import ttk
 from tkinter.ttk import Progressbar
+import os
 
 ceasar_key = 3
 
@@ -156,6 +157,11 @@ def toggle_password_visibility():
         entry_password.config(show='')
     else:
         entry_password.config(show='*')
+
+
+if not os.path.exists('user_data.txt'):
+    with open('user_data.txt', 'w'):
+        pass
 
 
 root = Tk()
