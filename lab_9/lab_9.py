@@ -1,3 +1,5 @@
+# Создать окно входа и регистрации
+
 from tkinter import *
 import re
 from tkinter import ttk
