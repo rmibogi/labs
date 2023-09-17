@@ -1,12 +1,51 @@
-import tkinter as tk
-from tkinter import messagebox
+from tkinter import *
 import re
+from tkinter import ttk
+import os
 from tkinter.ttk import Progressbar
 
 ceasar_key = 3
 
 font_style = ('Arial', 14, 'bold')
 font_style_desc = ('Arial', 12, 'bold')
+
+
+def dismiss(window):
+    window.grab_release()
+    window.destroy()
+
+def show_tooltip(event):
+    global tooltip
+    tooltip = Toplevel(root)
+    tooltip.overrideredirect(True)
+    style = ttk.Style()
+    style.configure("Tooltip.TLabel", background="lightyellow", relief="solid", borderwidth=1)
+    description = ttk.Label(tooltip, text="Пароль должен состоять\nиз латинских букв и цифр,\nминимум 8 символов.", style="Tooltip.TLabel")
+    description.pack()
+    tooltip.update_idletasks()
+    tooltip.geometry(f"+{root.winfo_pointerx()}+{root.winfo_pointery()}")
+
+def hide_tooltip(event):
+    if tooltip:
+        tooltip.destroy()
+
+def custom_showmessage(name, error, button=''):
+    error_window = Toplevel(root, relief=SUNKEN)
+    error_window.geometry("400x100+730+420")
+    error_window.resizable(False, False)
+    error_window.title(name)
+    error_window.protocol("WM_DELETE_WINDOW", lambda: dismiss(error_window))
+    error_window.columnconfigure(index=1, weight=1)
+    error_window.rowconfigure(index=1, weight=2)
+    error_window.rowconfigure(index=2, weight=3)
+    Label(error_window, text=error, font=font_style_desc).grid(row=1, column=1)
+    if button != '':
+        close_button = Button(error_window, text=button, font=font_style_desc, command=lambda: dismiss(error_window))
+        close_button.grid(row=2, column=1)
+    if button == 'Продолжить':
+        close_button = Button(error_window, text=button, font=font_style_desc, command=lambda: (dismiss(error_window), dismiss(root)))
+        close_button.grid(row=2, column=1)
+    error_window.grab_set()
 
 
 def encrypt_password(password):
@@ -30,7 +69,7 @@ def register():
     password = entry_password.get()
 
     if not username or not password:
-        messagebox.showerror('Регистрация', 'Пожалуйста, заполните все поля.')
+        custom_showmessage('Регистрация', 'Пожалуйста, заполните все поля.', 'Повторить ввод')
         return
 
     with open('user_data.txt', 'r') as file:
@@ -38,18 +77,18 @@ def register():
         for line in lines:
             stored_username, _ = line.strip().split('•')
             if username == stored_username:
-                messagebox.showerror('Регистрация', 'Пользователь с таким именем уже существует.')
+                custom_showmessage('Регистрация', 'Пользователь с таким именем уже существует.', 'Повторить ввод')
                 return
 
     strength = get_password_strength(password)
 
     if strength == 'Низкая':
-        messagebox.showerror('Регистрация', 'Пароль слишком слабый!')
+        custom_showmessage('Регистрация', 'Пароль слишком слабый!', 'Повторить ввод')
     else:
         encrypted_password = encrypt_password(password)
         with open('user_data.txt', 'a') as file:
             file.write(f'{username}•{encrypted_password}\n')
-        messagebox.showinfo('Регистрация', 'Регистрация прошла успешно!')
+        custom_showmessage('Регистрация', 'Регистрация прошла успешно!', 'Продолжить')
 
 
 def login():
@@ -57,7 +96,7 @@ def login():
     password = entry_password.get()
 
     if not username or not password:
-        messagebox.showerror('Вход', 'Пожалуйста, заполните все поля.')
+        custom_showmessage('Вход', 'Пожалуйста, заполните все поля.', 'Повторить ввод')
         return
 
     with open('user_data.txt', 'r') as file:
@@ -66,10 +105,10 @@ def login():
             stored_username, stored_encrypted_password = line.strip().split('•')
             stored_password = decrypt_password(stored_encrypted_password)
             if username == stored_username and password == stored_password:
-                messagebox.showinfo('Вход', 'Вход выполнен успешно!')
+                custom_showmessage('Вход', 'Вход выполнен успешно!', 'Продолжить')
                 return
 
-    messagebox.showerror('Вход', 'Неверное имя пользователя или пароль.')
+    custom_showmessage('Вход', 'Неверное имя пользователя или пароль.', 'Повторить ввод')
 
 
 def update_password_strength(*args):
@@ -93,6 +132,9 @@ def update_password_strength(*args):
 
 
 def get_password_strength(password):
+    if re.search(r'[а-я]|[А-Я]', password):
+        return 'Низкая'
+
     if len(password) < 8:
         return 'Низкая'
 
@@ -118,17 +160,17 @@ def toggle_password_visibility():
         entry_password.config(show='*')
 
 
-root = tk.Tk()
+root = Tk()
 root.title('Регистрация и вход')
 root.geometry("640x480+600+300")
 root.resizable(False, False)
 
-label_username = tk.Label(root, text='Имя пользователя', font=font_style)
-label_password = tk.Label(root, text='Пароль', font=font_style)
-entry_username = tk.Entry(root, font=font_style)
-entry_password = tk.Entry(root, show='*', font=font_style)
-button_register = tk.Button(root, text='Зарегистрироваться', width=19, command=register, font=font_style)
-button_login = tk.Button(root, text='Войти', width=7, command=login, font=font_style)
+label_username = Label(root, text='Имя пользователя', font=font_style)
+label_password = Label(root, text='Пароль', font=font_style)
+entry_username = Entry(root, font=font_style)
+entry_password = Entry(root, show='*', font=font_style)
+button_register = Button(root, text='Зарегистрироваться', width=19, command=register, font=font_style)
+button_login = Button(root, text='Войти', width=7, command=login, font=font_style)
 
 label_username.place(x=205, y=20)
 entry_username.place(x=208, y=50)
@@ -137,18 +179,20 @@ entry_password.place(x=208, y=110)
 button_register.place(x=205, y=260)
 button_login.place(x=205, y=210)
 
-password_strength_label = tk.Label(root, text='', fg='black', font=font_style_desc)
+password_strength_label = Label(root, text='', fg='black', font=font_style_desc)
 password_strength_label.place(x=205, y=180)
 
 password_strength_bar = Progressbar(root, length=225, mode='determinate')
 password_strength_bar.place(x=208, y=150)
 
-show_password_var = tk.BooleanVar()
+show_password_var = BooleanVar()
 show_password_var.set(False)
-show_password_checkbox = tk.Checkbutton(root, variable=show_password_var,
+show_password_checkbox = Checkbutton(root, variable=show_password_var,
                                         command=toggle_password_visibility, font=font_style_desc)
 show_password_checkbox.place(x=440, y=110)
 
+entry_password.bind("<Enter>", show_tooltip)
+entry_password.bind("<Leave>", hide_tooltip)
 entry_password.bind('<KeyRelease>', update_password_strength)
 
 root.mainloop()
