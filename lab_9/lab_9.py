@@ -1,7 +1,6 @@
 from tkinter import *
 import re
 from tkinter import ttk
-import os
 from tkinter.ttk import Progressbar
 
 ceasar_key = 3
