@@ -13,20 +13,16 @@ def dismiss(window):
     window.grab_release()
     window.destroy()
 
-def show_tooltip(event):
+def show_tooltip(tooltip_text):
     global tooltip
     tooltip = Toplevel(root)
     tooltip.overrideredirect(True)
     style = ttk.Style()
     style.configure("Tooltip.TLabel", background="lightyellow", relief="solid", borderwidth=1)
-    description = ttk.Label(tooltip, text="Пароль должен состоять\nиз латинских букв и цифр,\nминимум 8 символов.", style="Tooltip.TLabel")
+    description = ttk.Label(tooltip, text=tooltip_text, style="Tooltip.TLabel")
     description.pack()
     tooltip.update_idletasks()
     tooltip.geometry(f"+{root.winfo_pointerx()}+{root.winfo_pointery()}")
-
-def hide_tooltip(event):
-    if tooltip:
-        tooltip.destroy()
 
 def custom_showmessage(name, error, button=''):
     error_window = Toplevel(root, relief=SUNKEN)
@@ -186,12 +182,13 @@ password_strength_bar.place(x=208, y=150)
 
 show_password_var = BooleanVar()
 show_password_var.set(False)
-show_password_checkbox = Checkbutton(root, variable=show_password_var,
-                                        command=toggle_password_visibility, font=font_style_desc)
+show_password_checkbox = Checkbutton(root, variable=show_password_var, command=toggle_password_visibility)
 show_password_checkbox.place(x=440, y=110)
 
-entry_password.bind("<Enter>", show_tooltip)
-entry_password.bind("<Leave>", hide_tooltip)
+entry_password.bind("<Enter>", lambda event: show_tooltip("Пароль должен состоять\nиз латинских букв и цифр,\nминимум 8 символов."))
+entry_password.bind("<Leave>", lambda event: dismiss(tooltip))
+show_password_checkbox.bind("<Enter>", lambda event: show_tooltip("Показать пароль"))
+show_password_checkbox.bind("<Leave>", lambda event: dismiss(tooltip))
 entry_password.bind('<KeyRelease>', update_password_strength)
 
-root.mainloop()
+mainloop()
