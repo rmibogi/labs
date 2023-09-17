@@ -190,7 +190,7 @@ show_password_var.set(False)
 show_password_checkbox = Checkbutton(root, variable=show_password_var, command=toggle_password_visibility)
 show_password_checkbox.place(x=440, y=110+adj_y)
 
-entry_password.bind("<Enter>", lambda event: show_tooltip("Пароль должен состоять\nиз латинских букв и цифр,\nминимум 8 символов."))
+entry_password.bind("<Enter>", lambda event: show_tooltip("Пароль должен состоять\nиз латинских букв и цифр,\nминимум 8 символов"))
 entry_password.bind("<Leave>", lambda event: dismiss(tooltip))
 show_password_checkbox.bind("<Enter>", lambda event: show_tooltip("Показать пароль"))
 show_password_checkbox.bind("<Leave>", lambda event: dismiss(tooltip))
