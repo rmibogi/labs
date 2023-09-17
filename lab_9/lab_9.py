@@ -7,6 +7,7 @@ ceasar_key = 3
 
 font_style = ('Arial', 14, 'bold')
 font_style_desc = ('Arial', 12, 'bold')
+font_style_tooltip = ('Arial', 10)
 
 
 def dismiss(window):
@@ -19,7 +20,7 @@ def show_tooltip(tooltip_text):
     tooltip.overrideredirect(True)
     style = ttk.Style()
     style.configure("Tooltip.TLabel", background="lightyellow", relief="solid", borderwidth=1)
-    description = ttk.Label(tooltip, text=tooltip_text, style="Tooltip.TLabel")
+    description = ttk.Label(tooltip, text=tooltip_text, style="Tooltip.TLabel", font=font_style_tooltip)
     description.pack()
     tooltip.update_idletasks()
     tooltip.geometry(f"+{root.winfo_pointerx()}+{root.winfo_pointery()}")
@@ -167,23 +168,25 @@ entry_password = Entry(root, show='*', font=font_style)
 button_register = Button(root, text='Зарегистрироваться', width=19, command=register, font=font_style)
 button_login = Button(root, text='Войти', width=7, command=login, font=font_style)
 
-label_username.place(x=205, y=20)
-entry_username.place(x=208, y=50)
-label_password.place(x=205, y=80)
-entry_password.place(x=208, y=110)
-button_register.place(x=205, y=260)
-button_login.place(x=205, y=210)
+adj_y = 50
+
+label_username.place(x=205, y=20+adj_y)
+entry_username.place(x=208, y=50+adj_y)
+label_password.place(x=205, y=80+adj_y)
+entry_password.place(x=208, y=110+adj_y)
+button_register.place(x=205, y=260+adj_y)
+button_login.place(x=205, y=210+adj_y)
 
 password_strength_label = Label(root, text='', fg='black', font=font_style_desc)
-password_strength_label.place(x=205, y=180)
+password_strength_label.place(x=205, y=180+adj_y)
 
 password_strength_bar = Progressbar(root, length=225, mode='determinate')
-password_strength_bar.place(x=208, y=150)
+password_strength_bar.place(x=208, y=150+adj_y)
 
 show_password_var = BooleanVar()
 show_password_var.set(False)
 show_password_checkbox = Checkbutton(root, variable=show_password_var, command=toggle_password_visibility)
-show_password_checkbox.place(x=440, y=110)
+show_password_checkbox.place(x=440, y=110+adj_y)
 
 entry_password.bind("<Enter>", lambda event: show_tooltip("Пароль должен состоять\nиз латинских букв и цифр,\nминимум 8 символов."))
 entry_password.bind("<Leave>", lambda event: dismiss(tooltip))
