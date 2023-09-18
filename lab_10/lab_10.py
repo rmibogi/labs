@@ -19,7 +19,7 @@ def game_over_popup(result):
     message = tk.Label(popup, text=result, font=("normal", 16))
     message.pack(padx=20, pady=20)
 
-    popup.protocol("WM_DELETE_WINDOW", lambda: start_new_game())
+    popup.protocol("WM_DELETE_WINDOW", lambda: (start_new_game(), dismiss(popup)))
     restart_button = tk.Button(popup, text="Начать новую игру", font=("normal", 16), command=lambda: (start_new_game(), dismiss(popup)))
     restart_button.pack(padx=20, pady=20)
 
