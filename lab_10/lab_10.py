@@ -169,11 +169,6 @@ def player_move(position):
                 computer_move()
 
 
-def change_difficulty(new_difficulty):
-    global difficulty
-    difficulty = new_difficulty
-
-
 def start_new_game():
     global player_turn, game_over, board
     player_turn = True
