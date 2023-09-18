@@ -4,6 +4,23 @@ import tkinter as tk
 import random
 
 
+def game_over_popup(result):
+    global popup
+    popup = tk.Toplevel(root)
+    popup.title("Игра окончена")
+    popup.geometry("+600+300")
+    popup.resizable(False, False)
+
+    message = tk.Label(popup, text=result, font=("normal", 16))
+    message.pack(padx=20, pady=20)
+
+    popup.protocol("WM_DELETE_WINDOW", lambda: restart_game())
+    restart_button = tk.Button(popup, text="Начать новую игру", font=("normal", 16), command=restart_game)
+    restart_button.pack(padx=20, pady=20)
+
+    popup.grab_set()
+
+
 def select_options():
     options_window = tk.Toplevel(root)
     options_window.title("Настройки игры")
@@ -119,36 +136,6 @@ def computer_move():
             game_over_popup("Ничья!")
 
 
-def game_over_popup(result):
-    global popup
-    popup = tk.Toplevel(root)
-    popup.title("Игра окончена")
-    popup.geometry("+600+300")
-    popup.resizable(False, False)
-
-    message = tk.Label(popup, text=result, font=("normal", 16))
-    message.pack(padx=20, pady=20)
-
-    popup.protocol("WM_DELETE_WINDOW", lambda: restart_game())
-    restart_button = tk.Button(popup, text="Начать новую игру", font=("normal", 16), command=restart_game)
-    restart_button.pack(padx=20, pady=20)
-
-    popup.grab_set()
-
-
-def restart_game():
-    global player_turn, game_over, board
-    popup.grab_release()
-    popup.destroy()
-    player_turn = True
-    game_over = False
-    board = [" " for _ in range(9)]
-    for button in buttons:
-        button.config(text=" ")
-    if game_mode == "игрок против компьютера" and not player_turn:
-        computer_move()
-
-
 def player_move(position):
     global player_turn, game_over
     if board[position] == " " and not game_over:
@@ -167,6 +154,19 @@ def player_move(position):
         else:
             if game_mode == "игрок против компьютера":
                 computer_move()
+
+
+def restart_game():
+    global player_turn, game_over, board
+    popup.grab_release()
+    popup.destroy()
+    player_turn = True
+    game_over = False
+    board = [" " for _ in range(9)]
+    for button in buttons:
+        button.config(text=" ")
+    if game_mode == "игрок против компьютера" and not player_turn:
+        computer_move()
 
 
 def start_new_game():
