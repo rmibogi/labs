@@ -58,14 +58,6 @@ def encrypt_password(password):
     return encrypted_password
 
 
-def decrypt_password(encrypted_password):
-    decrypted_password = ""
-    for char in encrypted_password:
-        decrypted_char = chr(ord(char) - ceasar_key)
-        decrypted_password += decrypted_char
-    return decrypted_password
-
-
 def register():
     username = entry_username.get()
     password = entry_password.get()
@@ -95,7 +87,7 @@ def register():
 
 def login():
     username = entry_username.get()
-    password = entry_password.get()
+    password = encrypt_password(entry_password.get())
 
     if not username or not password:
         custom_showmessage('Вход', 'Пожалуйста, заполните все поля.', 'Повторить ввод')
@@ -105,8 +97,7 @@ def login():
         lines = file.readlines()
         for line in lines:
             stored_username, stored_encrypted_password = line.strip().split('•')
-            stored_password = decrypt_password(stored_encrypted_password)
-            if username == stored_username and password == stored_password:
+            if username == stored_username and password == stored_encrypted_password:
                 custom_showmessage('Вход', 'Вход выполнен успешно!', 'Продолжить')
                 return
 
