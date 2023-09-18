@@ -4,6 +4,11 @@ import tkinter as tk
 import random
 
 
+def dismiss(window):
+    window.grab_release()
+    window.destroy()
+
+
 def game_over_popup(result):
     global popup
     popup = tk.Toplevel(root)
@@ -15,7 +20,7 @@ def game_over_popup(result):
     message.pack(padx=20, pady=20)
 
     popup.protocol("WM_DELETE_WINDOW", lambda: start_new_game())
-    restart_button = tk.Button(popup, text="Начать новую игру", font=("normal", 16), command=start_new_game)
+    restart_button = tk.Button(popup, text="Начать новую игру", font=("normal", 16), command=lambda: (start_new_game(), dismiss(popup)))
     restart_button.pack(padx=20, pady=20)
 
     popup.grab_set()
@@ -64,7 +69,8 @@ def check_win(board_copy, player):
     for i in range(3):
         if board_copy[i] == board_copy[i + 3] == board_copy[i + 6] == player:
             return True
-    if board_copy[0] == board_copy[4] == board_copy[8] == player or board_copy[2] == board_copy[4] == board_copy[6] == player:
+    if board_copy[0] == board_copy[4] == board_copy[8] == player or board_copy[2] == board_copy[4] == board_copy[
+        6] == player:
         return True
     return False
 
@@ -158,8 +164,6 @@ def player_move(position):
 
 def start_new_game():
     global player_turn, game_over, board
-    popup.grab_release()
-    popup.destroy()
     player_turn = True
     game_over = False
     board = [" " for i in range(9)]
@@ -183,7 +187,8 @@ buttons = []
 for i in range(9):
     row = i // 3
     col = i % 3
-    button = tk.Button(root, text=" ", font=("normal", 52), width=5, height=2, command=lambda position=i: player_move(position))
+    button = tk.Button(root, text=" ", font=("normal", 52), width=5, height=2,
+                       command=lambda position=i: player_move(position))
     button.grid(row=row, column=col)
     buttons.append(button)
 
