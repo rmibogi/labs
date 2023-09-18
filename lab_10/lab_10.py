@@ -41,7 +41,7 @@ def select_options():
 
 
 def check_win(board, player):
-    for i in range(0, 9, 3):
+    for i in range(0, 8, 3):
         if board[i] == board[i + 1] == board[i + 2] == player:
             return True
     for i in range(3):
