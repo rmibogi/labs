@@ -186,8 +186,7 @@ buttons = []
 for i in range(9):
     row = i // 3
     col = i % 3
-    button = tk.Button(root, text=" ", font=("normal", 52), width=5, height=2,
-                       command=lambda position=i: player_move(position))
+    button = tk.Button(root, text=" ", font=("normal", 52), width=5, height=2, command=lambda position=i: player_move(position))
     button.grid(row=row, column=col)
     buttons.append(button)
 
