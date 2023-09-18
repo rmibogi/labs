@@ -57,31 +57,31 @@ def select_options():
     options_window.grab_set()
 
 
-def check_win(board, player):
+def check_win(board_copy, player):
     for i in range(0, 8, 3):
-        if board[i] == board[i + 1] == board[i + 2] == player:
+        if board_copy[i] == board_copy[i + 1] == board_copy[i + 2] == player:
             return True
     for i in range(3):
-        if board[i] == board[i + 3] == board[i + 6] == player:
+        if board_copy[i] == board_copy[i + 3] == board_copy[i + 6] == player:
             return True
-    if board[0] == board[4] == board[8] == player or board[2] == board[4] == board[6] == player:
+    if board_copy[0] == board_copy[4] == board_copy[8] == player or board_copy[2] == board_copy[4] == board_copy[6] == player:
         return True
     return False
 
 
-def evaluate(board):
-    if check_win(board, "X"):
+def evaluate(board_copy):
+    if check_win(board_copy, "X"):
         return -1
-    elif check_win(board, "O"):
+    elif check_win(board_copy, "O"):
         return 1
-    elif " " not in board:
+    elif " " not in board_copy:
         return 0
     else:
         return None
 
 
-def minimax(board, depth, is_max):
-    score = evaluate(board)
+def minimax(board_copy, depth, is_max):
+    score = evaluate(board_copy)
 
     if score is not None:
         return score
@@ -89,19 +89,19 @@ def minimax(board, depth, is_max):
     if is_max:
         best_score = -float("inf")
         for i in range(9):
-            if board[i] == " ":
-                board[i] = "O"
-                score = minimax(board, depth + 1, False)
-                board[i] = " "
+            if board_copy[i] == " ":
+                board_copy[i] = "O"
+                score = minimax(board_copy, depth + 1, False)
+                board_copy[i] = " "
                 best_score = max(score, best_score)
         return best_score
     else:
         best_score = float("inf")
         for i in range(9):
-            if board[i] == " ":
-                board[i] = "X"
-                score = minimax(board, depth + 1, True)
-                board[i] = " "
+            if board_copy[i] == " ":
+                board_copy[i] = "X"
+                score = minimax(board_copy, depth + 1, True)
+                board_copy[i] = " "
                 best_score = min(score, best_score)
         return best_score
 
@@ -163,8 +163,8 @@ def start_new_game():
     player_turn = True
     game_over = False
     board = [" " for i in range(9)]
-    for button in buttons:
-        button.config(text=" ")
+    for b in buttons:
+        b.config(text=" ")
     if game_mode == "игрок против компьютера" and not player_turn:
         computer_move()
 
