@@ -17,6 +17,7 @@ def dismiss(window):
     window.grab_release()
     window.destroy()
 
+
 def show_tooltip(tooltip_text):
     global tooltip
     tooltip = Toplevel(root)
@@ -27,6 +28,7 @@ def show_tooltip(tooltip_text):
     description.pack()
     tooltip.update_idletasks()
     tooltip.geometry(f"+{root.winfo_pointerx()}+{root.winfo_pointery()}")
+
 
 def custom_showmessage(name, error, button=''):
     error_window = Toplevel(root, relief=SUNKEN)
@@ -42,7 +44,8 @@ def custom_showmessage(name, error, button=''):
         close_button = Button(error_window, text=button, font=font_style_desc, command=lambda: dismiss(error_window))
         close_button.grid(row=2, column=1)
     if button == 'Продолжить':
-        close_button = Button(error_window, text=button, font=font_style_desc, command=lambda: (dismiss(error_window), dismiss(root)))
+        close_button = Button(error_window, text=button, font=font_style_desc,
+                              command=lambda: (dismiss(error_window), dismiss(root)))
         close_button.grid(row=2, column=1)
     error_window.grab_set()
 
@@ -82,7 +85,7 @@ def register():
     strength = get_password_strength(password)
 
     if strength == 'Низкая':
-        custom_showmessage('Регистрация', 'Пароль слишком слабый!', 'Повторить ввод')
+        custom_showmessage('Регистрация', 'Пароль слишком слабый! Проверьте условия.', 'Повторить ввод')
     else:
         encrypted_password = encrypt_password(password)
         with open('user_data.txt', 'a') as file:
@@ -163,7 +166,6 @@ if not os.path.exists('user_data.txt'):
     with open('user_data.txt', 'w'):
         pass
 
-
 root = Tk()
 root.title('Регистрация и вход')
 root.geometry("640x480+600+300")
@@ -178,25 +180,26 @@ button_login = Button(root, text='Войти', width=7, command=login, font=font
 
 adj_y = 50
 
-label_username.place(x=205, y=20+adj_y)
-entry_username.place(x=208, y=50+adj_y)
-label_password.place(x=205, y=80+adj_y)
-entry_password.place(x=208, y=110+adj_y)
-button_register.place(x=205, y=260+adj_y)
-button_login.place(x=205, y=210+adj_y)
+label_username.place(x=205, y=20 + adj_y)
+entry_username.place(x=208, y=50 + adj_y)
+label_password.place(x=205, y=80 + adj_y)
+entry_password.place(x=208, y=110 + adj_y)
+button_register.place(x=205, y=260 + adj_y)
+button_login.place(x=205, y=210 + adj_y)
 
 password_strength_label = Label(root, text='', fg='black', font=font_style_desc)
-password_strength_label.place(x=205, y=180+adj_y)
+password_strength_label.place(x=205, y=180 + adj_y)
 
 password_strength_bar = Progressbar(root, length=225, mode='determinate')
-password_strength_bar.place(x=208, y=150+adj_y)
+password_strength_bar.place(x=208, y=150 + adj_y)
 
 show_password_var = BooleanVar()
 show_password_var.set(False)
 show_password_checkbox = Checkbutton(root, variable=show_password_var, command=toggle_password_visibility)
-show_password_checkbox.place(x=440, y=110+adj_y)
+show_password_checkbox.place(x=440, y=110 + adj_y)
 
-entry_password.bind("<Enter>", lambda event: show_tooltip("Пароль должен состоять\nиз латинских букв и цифр,\nминимум 8 символов"))
+entry_password.bind("<Enter>",
+                    lambda event: show_tooltip("Пароль должен состоять\nиз латинских букв и цифр,\nминимум 8 символов"))
 entry_password.bind("<Leave>", lambda event: dismiss(tooltip))
 show_password_checkbox.bind("<Enter>", lambda event: show_tooltip("Показать пароль"))
 show_password_checkbox.bind("<Leave>", lambda event: dismiss(tooltip))
