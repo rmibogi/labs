@@ -69,8 +69,7 @@ def check_win(board_copy, player):
     for i in range(3):
         if board_copy[i] == board_copy[i + 3] == board_copy[i + 6] == player:
             return True
-    if board_copy[0] == board_copy[4] == board_copy[8] == player or board_copy[2] == board_copy[4] == board_copy[
-        6] == player:
+    if board_copy[0] == board_copy[4] == board_copy[8] == player or board_copy[2] == board_copy[4] == board_copy[6] == player:
         return True
     return False
 
