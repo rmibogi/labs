@@ -14,8 +14,8 @@ def game_over_popup(result):
     message = tk.Label(popup, text=result, font=("normal", 16))
     message.pack(padx=20, pady=20)
 
-    popup.protocol("WM_DELETE_WINDOW", lambda: restart_game())
-    restart_button = tk.Button(popup, text="Начать новую игру", font=("normal", 16), command=restart_game)
+    popup.protocol("WM_DELETE_WINDOW", lambda: start_new_game())
+    restart_button = tk.Button(popup, text="Начать новую игру", font=("normal", 16), command=start_new_game)
     restart_button.pack(padx=20, pady=20)
 
     popup.grab_set()
@@ -156,21 +156,10 @@ def player_move(position):
                 computer_move()
 
 
-def restart_game():
+def start_new_game():
     global player_turn, game_over, board
     popup.grab_release()
     popup.destroy()
-    player_turn = True
-    game_over = False
-    board = [" " for _ in range(9)]
-    for button in buttons:
-        button.config(text=" ")
-    if game_mode == "игрок против компьютера" and not player_turn:
-        computer_move()
-
-
-def start_new_game():
-    global player_turn, game_over, board
     player_turn = True
     game_over = False
     board = [" " for i in range(9)]
