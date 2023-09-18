@@ -113,7 +113,7 @@ def login():
     custom_showmessage('Вход', 'Неверное имя пользователя или пароль.', 'Повторить ввод')
 
 
-def update_password_strength(*args):
+def update_password_strength(event):
     password = entry_password.get()
 
     if password:
