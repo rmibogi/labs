@@ -1,3 +1,3 @@
-# Лабораторная работа 10
+# Лабораторная работа 11
 
-Крестики-нолики на tkinter с компьютером. 
+Mindmap для сайта [Rotten Tomatoes](https://www.rottentomatoes.com/).
