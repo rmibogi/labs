@@ -4,7 +4,6 @@
 
 import random
 import numpy as np
-import math
 from decimal import Decimal, getcontext
 
 def s_sum(x, t):
@@ -27,7 +26,7 @@ def s_sum(x, t):
 
     return result
 
-print("Введите число t, являющееся коэффициентом при умножении: ")
+print("Введите число t, являющееся количеством знаков после запятой (точностью):")
 t = int(input())
 while t > 300 or t < 1:  # ошибка в случае введения слишком малой точности
     t = int(input("Вы ввели число, неподходящее по условию, введите число t, большее или равное 1:\n"))
@@ -41,5 +40,4 @@ print()
 getcontext().prec = t + 100
 
 result = s_sum(x, t)
-print(f"Сумма ряда с точностью {t} знаков после запятой: {result:.{t}f}".rstrip('0'))
-
+print(f"Сумма ряда с точностью {t} знаков после запятой: {result:.{t}f}".rstrip('0').rstrip('.'))
