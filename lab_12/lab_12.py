@@ -1,46 +1,34 @@
-# Вычислить сумму знакопеременного ряда |хn|/n!, где х-матрица ранга к (к и матрица задаются случайным образом), n - номер слагаемого.
-# Сумма считается вычисленной, если точность вычислений будет не меньше t знаков после запятой. У алгоритма д.б. линейная сложность.
-# Операция умножения –поэлементная. Знак первого слагаемого  +.
-
-import random
 import numpy as np
+import math
 
-
-def s_sum(t):
-    k = random.randint(1, 10)  # Размер матрицы задается рандомно
-    x = np.random.randint(-10, 10, (k, k))  # Случайная матрица с числами в диапазоне от -10 до 10
-
-    print("Случайная матрица x:")
-    print(x)
-    print()
-
-    sign = 1
+def s_sum(x, t):
     n = 1
-    total_sum = 0
+    curr_x = x
     factorial = 1
+    result = 0
+    sign = 1
 
     while True:
+        curr_term = np.linalg.det(curr_x) / factorial
+        result += sign * curr_term
         n += 1
-        factorial *= n  # Вычисляем факториал
-        det_x = np.linalg.det(x)  # Находим определитель
-        current_term = det_x / factorial  # Вычисляем следующее слагаемое
-        total_sum += sign * current_term  # Добавляем следующее слагаемое к сумме с учетом знака
-
-        x = np.dot(x, x)
         sign = -sign
+        factorial *= n
+        curr_x *= x
 
-        if abs(current_term) < 10 ** (-t):
+        print(curr_term, result)
+
+        if abs(curr_term) < 1 / (10 ** t):
             break
 
-    return total_sum
+    return result
 
+k = 3
+t = 6
+x = np.random.randint(0, 10, (k, k))
 
-print("Введите число t, количество знаков после запятой: ")
-t = int(input())  # Точность (количество знаков после запятой)
-while t < 0:  # ошибка в случае введения слишком малой точности
-    t = int(input("Вы ввели число, неподходящее по условию, введите число t, большее или равное 0:\n"))
-
+print(x)
 print()
 
-result = s_sum(t)
-print(f"Сумма ряда с точностью {t} знаков: {result:.{t}f}")
+result = s_sum(x, t)
+print(f"Сумма ряда с точностью {t} знаков после запятой: {result:.{t}f}")
