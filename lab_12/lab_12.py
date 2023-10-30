@@ -17,21 +17,19 @@ def s_sum(x, t):
         factorial *= n
         curr_x *= x
 
-        print(curr_term, result)
-
         if abs(curr_term) < 1 / (10 ** t):
             break
 
     return result
 
 k = 3
-t = 6
+t = 10
 x = np.random.randint(0, 10, (k, k))
 
 print(x)
 print()
 
-getcontext().prec = t ** 10
+getcontext().prec = 700
 
 result = s_sum(x, t)
 print(f"Сумма ряда с точностью {t} знаков после запятой: {result:.{t}f}")
