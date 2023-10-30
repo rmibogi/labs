@@ -1,5 +1,6 @@
 import numpy as np
 import math
+from decimal import Decimal, getcontext
 
 def s_sum(x, t):
     n = 1
@@ -9,7 +10,7 @@ def s_sum(x, t):
     sign = 1
 
     while True:
-        curr_term = np.linalg.det(curr_x) / factorial
+        curr_term = Decimal(np.linalg.det(curr_x) / factorial)
         result += sign * curr_term
         n += 1
         sign = -sign
@@ -29,6 +30,8 @@ x = np.random.randint(0, 10, (k, k))
 
 print(x)
 print()
+
+getcontext().prec = t ** 10
 
 result = s_sum(x, t)
 print(f"Сумма ряда с точностью {t} знаков после запятой: {result:.{t}f}")
