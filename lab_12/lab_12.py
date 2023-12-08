@@ -12,6 +12,7 @@ from decimal import Decimal, getcontext
 def s_sum(x, t):
     # Задаем базовые параметры
     n = 1  # Номер слагаемого
+    x = x
     curr_x = x  # Текущая матрица
     factorial = 1  # Накопляемый факториал
     res = 0  # Переменная результата
