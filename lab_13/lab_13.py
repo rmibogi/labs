@@ -27,11 +27,11 @@ def count_gender_and_survival(data, header):
     female_survived = 0
 
     for row in data:
-        if row[gender_index].lower() == 'male':
+        if row[gender_index] == 'male':
             male_count += 1
             if row[survived_index] == '1':
                 male_survived += 1
-        elif row[gender_index].lower() == 'female':
+        elif row[gender_index] == 'female':
             female_count += 1
             if row[survived_index] == '1':
                 female_survived += 1
